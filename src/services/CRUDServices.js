@@ -1,10 +1,7 @@
 const connection = require("../config/database");
-const getHomePage = {}
-
-
-
+// const getHomePage = {}
 
 module.exports = {
-    getHomePage,
+    // getHomePage,
     
 }
