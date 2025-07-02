@@ -1,14 +1,14 @@
 require('dotenv').config();
 const express = require('express')
 const app = express()
-const path = require('path');
+// const path = require('path');
 const configViewEngine = require('./config/viewEngine');
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOSTNAME;
 const webRoutes = require('./routes/web');
 const connection = require('./config/database');
 
-//config req.body
+// //config req.body
 app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded()); //Parse URL-encoded bodiess
 
@@ -33,5 +33,5 @@ app.listen(port, hostname, () => {
 })
 
 // git add.
-// git commit - m "27/06 4am"
+// git commit - m ""
 // git push

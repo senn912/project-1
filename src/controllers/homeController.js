@@ -23,31 +23,25 @@ const postLoginUser = async (req, res) => {
     `select * from Users where nickName = ? and password = ?`, [nickName, password]
   );
   if (rows.length > 0) {
-    res.send(`<!DOCTYPE html>
-    <html>
-      <body>
+    res.send(`
         <script>
           window.onload = function() {
             alert("login success");
             window.location.href = "/";
           };
         </script>
-      </body>
-    </html>`);
+      `);
 
   }
   else {
-    res.send(`<!DOCTYPE html>
-            <html>
-              <body>
+    res.send(`
                 <script>
                   window.onload = function() {
                     alert("Wrong Nickname or Password");
                     window.location.href = "/login";
                   };
                 </script>
-              </body>
-            </html>`);
+              `);
 
   }
 
@@ -64,7 +58,7 @@ const postCreateUser = async (req, res) => {
   let nickName = req.body.nickName;
   let password = req.body.password;
 
-  // Kiểm tra email hợp lệ
+  // check email
   if (!email.includes('@')) {
     return res.send(`
             <script>
@@ -73,6 +67,7 @@ const postCreateUser = async (req, res) => {
             </script>
         `);
   }
+  // check nickname ton tai
   let [rows] = await connection.query(
     `SELECT * FROM Users WHERE nickName = ?`,
     [nickName]
@@ -93,29 +88,24 @@ const postCreateUser = async (req, res) => {
 
   console.log(">>> check result ", result);
   res.send(
-    `<!DOCTYPE html>
-            <html>
-              <body>
-                <script>
-                  window.onload = function() {
-                    alert("Create success");
-                    window.location.href = "/login";
+    `
+      <script>
+          window.onload = function() {
+            alert("Create success");
+            window.location.href = "/login";
                   };
-                </script>
-              </body>
-            </html>`
+      </script>
+              `
   );
 
 }
 
-const getLoginUser = () => {
 
-}
 module.exports = {
   getHomePage,
   getLogin,
+  postLoginUser,
   getCreateUser,
   postCreateUser,
-  getLoginUser,
-  postLoginUser
+
 }
