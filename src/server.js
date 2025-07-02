@@ -14,8 +14,8 @@ app.use(express.urlencoded()); //Parse URL-encoded bodiess
 
 console.log("check env: ", process.env);
 
-// const mysql = require('mysql2');
-// const { table } = require('console');
+const mysql = require('mysql2');
+const { table } = require('console');
 
 // config template engine
 configViewEngine(app);
