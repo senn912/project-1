@@ -101,6 +101,9 @@ const postCreateUser = async (req, res) => {
 
 }
 
+const getNewsPage = (req, res) => {
+  res.render('news.ejs');
+}
 
 module.exports = {
   getHomePage,
@@ -108,5 +111,6 @@ module.exports = {
   postLoginUser,
   getCreateUser,
   postCreateUser,
+  getNewsPage,
 
 }
