@@ -25,7 +25,7 @@
         }
 
         button {
-            background-color: #04AA6D;
+            background-color: #119680;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
@@ -78,7 +78,7 @@
 </head>
 
 </div>
-<div> <img class="logo" src="/images/logo4.webp"></div>
+<div><a href="/"> <img class="logo" src="/images/logo4.webp"></div></a>
 <div class="form-add-new">
     <form action="/login" method="post">
         <fieldset>
@@ -89,7 +89,7 @@
             </div>
             <div class="input-group">
                 <label>Password:</label>
-                <input type="text" name="password" />
+                <input type="password" name="password" />
             </div>
             <div>
                 <button> Save </button>
@@ -97,8 +97,11 @@
         </fieldset>
     </form>
 </div>
-<div> <a href="/create">Create</a></div>
-<div> <a href="/">Home</a></div>
+<div class="button-group">
+    <a href="/create" class="create-button">Create</a>
+    <a href="/" class="home-button">Home</a>
+</div>
+
 </body>
 
 </html>

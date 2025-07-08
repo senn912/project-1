@@ -1,22 +1,56 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Home - Manifox Technology</title>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
-
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
     </style>
 </head>
 
-
 <body>
-    <div> <img class="logo" src="/images/logo4.webp"></div>
-    <div class="homeLogin">
-        <a href="/login">Login</a>
-        <a href="/create">Create</a>
+    <div>
+        <div class="navbar">
+            <div class="nav-left">
+                <a href="/"><img class="logo1" src="/images/logo4.webp" alt="Manifox Logo"></a>
+            </div>
+            <div class="nav-menu">
+                <a class="active" href="/">Home</a>
+                <a href="#news">News</a>
+                <!-- <a href="#contact">Contact</a>
+                <a href="#about">About</a> -->
+            </div>
+
+            <div class="nav-right">
+                <a href="/login" class="btn">Login</a>
+                <a href="/create" class="btn">Create</a>
+            </div>
+        </div>
     </div>
+    <div class="container">
+        <a href="/"> <img class="logo1" src="/images/logo4.webp" alt="Manifox Logo"> </a>
+        <div class="slogan">Manifox Technology Solutions</div>
+        <div class="description">
+            Welcome to Manifox – delivering innovative, scalable and secure tech solutions for modern businesses.
+        </div>
+        <div><img class="ronaldo" src="/images/ronaldo.png"> </div>
+    </div>
+
+
+    <footer>
+        &copy; 2025 Manifox Technology. All rights reserved.
+    </footer>
 
 </body>
 

@@ -1,4 +1,8 @@
 const connection = require('../config/database');
+const { postCheckUser, postCheckNickname, postInsertUser } = require('../services/CRUDServices');
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const getHomePage = (req, res) => {
   res.render('home.ejs');
@@ -19,11 +23,11 @@ const postLoginUser = async (req, res) => {
   console.log(">>>>>nickname ", nickName);
   console.log(">>>password ", password);
 
-  let [rows] = await connection.execute(
-    `select * from Users where nickName = ? and password = ?`, [nickName, password]
-  );
+  let [rows] = await postCheckUser(nickName);
   if (rows.length > 0) {
-    res.send(`
+    const match = await bcrypt.compare(password, rows[0].password);
+    if (match) {
+      res.send(`
         <script>
           window.onload = function() {
             alert("login success");
@@ -31,10 +35,10 @@ const postLoginUser = async (req, res) => {
           };
         </script>
       `);
+    }
 
-  }
-  else {
-    res.send(`
+    else {
+      res.send(`
                 <script>
                   window.onload = function() {
                     alert("Wrong Nickname or Password");
@@ -43,6 +47,7 @@ const postLoginUser = async (req, res) => {
                 </script>
               `);
 
+    }
   }
 
 
@@ -68,10 +73,7 @@ const postCreateUser = async (req, res) => {
         `);
   }
   // check nickname ton tai
-  let [rows] = await connection.query(
-    `SELECT * FROM Users WHERE nickName = ?`,
-    [nickName]
-  );
+  let [rows] = await postCheckNickname(nickName);
   if (rows.length > 0) {
     return res.send(`
             <script>
@@ -82,9 +84,8 @@ const postCreateUser = async (req, res) => {
   }
 
 
-  let [result] = await connection.query(
-    `insert into Users (email,fullName,nickName,password) values(?,?,?,?)`, [email, fullName, nickName, password],
-  );
+  let [result] = await postInsertUser(email, fullName, nickName, password);
+
 
   console.log(">>> check result ", result);
   res.send(

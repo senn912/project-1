@@ -1,28 +1,139 @@
-.logo {
-    width: 500px;
+footer {
+    background-color: #dddddd4b;
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
 
 }
 
-.homeLogin a {
-    display: block;
-    /* Để xuống dòng */
+.ronaldo {
+    width: 400px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #119680;
+    padding: 10px 30px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo1 {
+    height: 40px;
+    cursor: pointer;
+}
+
+/* Menu items */
+.nav-menu {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-menu a {
+    color: rgb(255, 255, 255);
     text-decoration: none;
-    color: #fff;
-    background-color: #368040;
-    padding: 10px 20px;
-    margin: 10px auto;
-    width: 150px;
-    border-radius: 5px;
+    padding: 8px 12px;
     transition: background-color 0.3s;
 }
 
-.homeLogin a:hover {
-    background-color: #680737;
+.nav-menu a:hover,
+.nav-menu a.active {
+    background-color: #26851d;
+    border-radius: 4px;
 }
 
+/* Login / Create buttons */
+.nav-right {
+    display: flex;
+    gap: 10px;
+}
 
-.logo {
-    width: 300px;
-    height: auto;
-    /* margin-left: 30px; */
+.btn {
+    background-color: #25b137;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #127e6d;
+}
+
+/* Main content */
+.container {
+    text-align: center;
+    padding: 40px 20px;
+    flex-grow: 1;
+}
+
+.slogan {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.description {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background-color: #ddd;
+    padding: 15px;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+.create-button {
+    background-color: #169c89;
+    color: white;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.create-button:hover {
+    background-color: #127a6e;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.home-button {
+    background-color: #169c89;
+    color: white;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: #127a6e;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button-group {
+    margin-top: 20px;
 }
