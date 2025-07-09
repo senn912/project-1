@@ -27,31 +27,31 @@ const postLoginUser = async (req, res) => {
   if (rows.length > 0) {
     const match = await bcrypt.compare(password, rows[0].password);
     if (match) {
-      res.send(`
+      return res.send(`
         <script>
-          window.onload = function() {
+          
             alert("login success");
             window.location.href = "/";
-          };
+          
         </script>
       `);
     }
+  }
 
-    else {
-      res.send(`
+  return res.send(`
                 <script>
-                  window.onload = function() {
+                  
                     alert("Wrong Nickname or Password");
                     window.location.href = "/login";
-                  };
+              
                 </script>
               `);
 
-    }
-  }
-
-
 }
+
+
+
+
 
 
 
