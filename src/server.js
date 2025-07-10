@@ -9,8 +9,9 @@ const hostname = process.env.HOSTNAME || 'localhost';
 
 const webRoutes = require('./routes/web');
 const connection = require('./config/database');
-const initAPIRoute = require('./routes/api')
+const initAPIRoute = require('./routes/api');
 
+const multer = require('multer');
 // //config req.body
 app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodiess

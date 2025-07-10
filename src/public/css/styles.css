@@ -8,7 +8,7 @@ footer {
 }
 
 .ronaldo {
-    width: 400px;
+    width: 800px;
 }
 
 .navbar {
@@ -73,7 +73,7 @@ footer {
 .container {
     text-align: center;
     padding: 40px 20px;
-    flex-grow: 1;
+    /* flex-grow: 1; */
 }
 
 .slogan {
@@ -136,4 +136,13 @@ footer {
 
 .button-group {
     margin-top: 20px;
+}
+
+.upload-file-container {
+    padding: 15px;
+    text-align: center;
+}
+
+.upload-file-container label {
+    display: block;
 }

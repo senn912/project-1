@@ -1,5 +1,6 @@
 const connection = require('../config/database');
 const { postCheckUser, postCheckNickname, postInsertUser } = require('../services/CRUDServices');
+const multer = require('multer');
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -48,13 +49,6 @@ const postLoginUser = async (req, res) => {
               `);
 
 }
-
-
-
-
-
-
-
 
 const postCreateUser = async (req, res) => {
 
@@ -105,6 +99,71 @@ const getNewsPage = (req, res) => {
   res.render('news.ejs');
 }
 
+const getUpload = (req, res) => {
+  res.render('upload.ejs');
+}
+
+// const upload = multer().single('profile_pic');
+
+const postUpload = async (req, res) => {
+  // 'profile_pic' is the name of our file input field in the HTML form
+  console.log(req.file);
+
+  if (req.fileValidationError) {
+    return res.send(req.fileValidationError);
+  }
+  else if (!req.file) {
+    return res.send('Please select an image to upload');
+  }
+  // else if (req instanceof multer.MulterError) {
+  //   return res.send(req.err);
+  // }
+  // else if (req.err) {
+  //   return res.send(req.err);
+  // }
+
+  // Display uploaded image
+  res.send(`
+    You have uploaded this image:
+    <hr/>
+    <img src="/images/${req.file.filename}" width="500">
+    <hr/>
+    <a href="/upload">Upload another image</a>
+  `);
+};
+
+const uploadMulti = multer().array('multiple_images', 3);
+const uploadMultiFiles = async (req, res) => {
+
+  console.log(req.files)
+  if (req.fileValidationError) {
+    return res.send(req.fileValidationError);
+  }
+  else if (!req.files) {
+    return res.send('Please select an image to upload');
+  }
+  // else if (req instanceof multer.MulterError) {
+  //   return res.send(req);
+  // }
+  // else if (req.err) {
+  //   return res.send(req.err);
+  // }
+
+  let result = "You have uploaded these images: <hr />";
+  const files = req.files;
+  let index, len;
+
+  // Loop through all the uploaded images and display them on frontend
+  for (index = 0, len = files.length; index < len; ++index) {
+    result += `<img src="/images/${files[index].filename}" width="300" style="margin-right: 20px;">`;
+  }
+  result += '<hr/><a href="./upload">Upload more images</a>';
+  res.send(result);
+};
+
+
+
+
 module.exports = {
   getHomePage,
   getLogin,
@@ -112,5 +171,8 @@ module.exports = {
   getCreateUser,
   postCreateUser,
   getNewsPage,
+  getUpload,
+  postUpload,
+  uploadMultiFiles
 
 }
