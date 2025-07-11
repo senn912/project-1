@@ -59,5 +59,10 @@ router.post('/upload-multiple-images', (req, res, next) => {
     })
 }, uploadMultiFiles)
 
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
+});
 
 module.exports = router;

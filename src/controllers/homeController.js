@@ -26,29 +26,30 @@ const postLoginUser = async (req, res) => {
 
   let [rows] = await postCheckUser(nickName);
   if (rows.length > 0) {
-    const match = await bcrypt.compare(password, rows[0].password);
+    const user = rows[0];
+    console.log("check user: ", user)
+    const match = await bcrypt.compare(password, user.password);
+
     if (match) {
-      return res.send(`
-        <script>
-          
-            alert("login success");
-            window.location.href = "/";
-          
-        </script>
-      `);
+      //   gan session khi dang nhap dung
+      req.session.user = {
+        id: user.id,
+        fullName: user.fullName,
+        nickName: user.nickName,
+      };
+
+      return res.redirect('/');
     }
   }
 
+  // wrong
   return res.send(`
-                <script>
-                  
-                    alert("Wrong Nickname or Password");
-                    window.location.href = "/login";
-              
-                </script>
-              `);
-
-}
+    <script>
+      alert("Wrong Nickname or Password");
+      window.location.href = "/login";
+    </script>
+  `);
+};
 
 const postCreateUser = async (req, res) => {
 
@@ -142,12 +143,7 @@ const uploadMultiFiles = async (req, res) => {
   else if (!req.files) {
     return res.send('Please select an image to upload');
   }
-  // else if (req instanceof multer.MulterError) {
-  //   return res.send(req);
-  // }
-  // else if (req.err) {
-  //   return res.send(req.err);
-  // }
+ 
 
   let result = "You have uploaded these images: <hr />";
   const files = req.files;

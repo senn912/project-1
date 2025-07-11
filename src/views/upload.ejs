@@ -29,19 +29,27 @@
                 <a href="/">Home</a>
                 <a href="/news">News</a>
                 <a class="active" href="/upload" class="btn">Upload</a>
-                <!-- <a href="#contact">Contact</a>
-                <a href="#about">About</a> -->
+               
             </div>
 
             <div class="nav-right">
-                <a href="/login" class="btn">Login</a>
-                <a href="/create" class="btn">Create</a>
+                <% if (user) { %>
+                    <div class="btn">
+                        <span>Hello, <%= user.fullName %></span>
+                        <div>
+                            <a href="/logout">Log out</a>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <a class="btn" href="/login">Login</a>
+                        <a class="btn" href="/create">Create</a>
+                        <% } %>
 
             </div>
         </div>
     </div>
     <div class="container">
-        <!-- <a href="/"> <img class="logo1" src="/images/logo4.webp" alt="Manifox Logo"> </a> -->
+       
         <div class="slogan">Manifox Technology Solutions</div>
         <div class="description">
             Welcome to Manifox – Upload files

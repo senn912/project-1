@@ -33,8 +33,18 @@
             </div>
 
             <div class="nav-right">
-                <a href="/login" class="btn">Login</a>
-                <a href="/create" class="btn">Create</a>
+                <% if (user) { %>
+                    <div class="btn">
+                        <span>Hello, <%= user.fullName %></span>
+                        <div>
+                            <a href="/logout">Log out</a>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <a class="btn" href="/login">Login</a>
+                        <a class="btn" href="/create">Create</a>
+                        <% } %>
+
             </div>
         </div>
     </div>

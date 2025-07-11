@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express')
 const app = express()
+var mogan = require('morgan');
+const session = require('express-session');
 
 // const path = require('path');
 const configViewEngine = require('./config/viewEngine');
@@ -16,7 +18,14 @@ const multer = require('multer');
 app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodiess
 
-// console.log("check env: ", process.env);
+// app.use((req, res, next) => {
+//     //check =>return res.send()
+//     console.log('>>>> run into my middleware ', req.method)
+//     console.log(req.method)
+//     next();
+// })
+
+
 
 const mysql = require('mysql2');
 const { table } = require('console');
@@ -25,14 +34,34 @@ const { table } = require('console');
 configViewEngine(app);
 
 
+app.use(mogan('combined'))
+
+// Gửi session user tới mọi view EJS
+
+
+app.use(session({
+    secret: 'secret_key',         // có thể đặt bí danh bảo mật
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }     // để false nếu không dùng HTTPS
+}));
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    console.log('res.locals.user = ', res.locals.user);
+    next();
+});
+
 //khai báo route
 app.use('/', webRoutes);
-//app.use('/test', webRoutes);
-
 
 
 //init api route
 initAPIRoute(app);
+
+app.use((req, res) => {
+    return res.render('404.ejs')
+});
+
 
 app.listen(port, hostname, () => {
     console.log(`Example app listening on port ${port}`)
