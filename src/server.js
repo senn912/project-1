@@ -18,14 +18,6 @@ const multer = require('multer');
 app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodiess
 
-// app.use((req, res, next) => {
-//     //check =>return res.send()
-//     console.log('>>>> run into my middleware ', req.method)
-//     console.log(req.method)
-//     next();
-// })
-
-
 
 const mysql = require('mysql2');
 const { table } = require('console');
@@ -34,22 +26,8 @@ const { table } = require('console');
 configViewEngine(app);
 
 
-app.use(mogan('combined'))
-
-// Gửi session user tới mọi view EJS
-
-
-app.use(session({
-    secret: 'secret_key',         // có thể đặt bí danh bảo mật
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }     // để false nếu không dùng HTTPS
-}));
-app.use((req, res, next) => {
-    res.locals.user = req.session.user || null;
-    console.log('res.locals.user = ', res.locals.user);
-    next();
-});
+const { initMiddleware } = require('./middleware/authMiddleware');
+initMiddleware(app);
 
 //khai báo route
 app.use('/', webRoutes);

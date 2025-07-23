@@ -27,17 +27,32 @@ const postInsertUser = async (email, fullName, nickName, password) => {
 }
 
 const putupdateUser = async (id, email, fullName, password) => {
-    if (!password || typeof password !== 'string') {
-        throw new Error('Invalid password');
+    // Lấy thông tin cũ của user để giữ nguyên nếu không sửa
+    const [rows] = await connection.query(`SELECT * FROM Users WHERE id = ?`, [id]);
+    const user = rows[0];
+    if (!user) throw new Error('User not found');
+
+    // Giữ nguyên giá trị nếu không nhập mới
+    email = email || user.email;
+    fullName = fullName || user.fullName;
+
+    let query = `UPDATE Users SET email = ?, fullName = ?`;
+    let params = [email, fullName];
+
+    if (password && typeof password === 'string' && password.trim() !== '') {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        query += `, password = ?`;
+        params.push(hashedPassword);
     }
-    console.log("password : ", password);
-    const hashedPassword = await bcrypt.hash(password, 10);
-    let [result] = await connection.query(
-        `UPDATE Users SET email = ?, fullName = ?, password = ? WHERE id = ?`,
-        [email, fullName, hashedPassword, id]
-    );
-    return [result];
+
+    query += ` WHERE id = ?`;
+    params.push(id);
+
+    const [result] = await connection.query(query, params);
+    return result;
 };
+
+
 
 const checkId = async (id) => {
 
@@ -55,6 +70,14 @@ const deleteUserById = async (id) => {
 
 }
 
+const getAllUsers = async () => {
+    let [result, fields] = await connection.query('select *from Users');
+    return result;
+}
+
+
+
+
 module.exports = {
     postCheckUser,
     postCheckNickname,
@@ -62,5 +85,6 @@ module.exports = {
     putupdateUser,
     checkId,
     deleteUserById,
+    getAllUsers,
 
 }

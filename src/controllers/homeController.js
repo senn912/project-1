@@ -1,5 +1,5 @@
 const connection = require('../config/database');
-const { postCheckUser, postCheckNickname, postInsertUser } = require('../services/CRUDServices');
+const { postCheckUser, postCheckNickname, postInsertUser, getAllUsers, deleteUserById, putupdateUser } = require('../services/CRUDServices');
 const multer = require('multer');
 
 const bcrypt = require('bcrypt');
@@ -171,8 +171,68 @@ const uploadMultiFiles = async (req, res) => {
   res.send(result);
 };
 
+const getManagement = async (req, res) => {
+  let result = await getAllUsers();
+  return res.render('management.ejs', { listUsers: result })
+
+}
+
+const getUpdatePage = async (req, res) => {
+  const userId = req.params.id;
+  let [result, fields] = await connection.query('select * from Users where id = ?', [userId]);
+  console.log(">>>check results: ", result)
+
+  let user = result && result.length > 0 ? result[0] : {};
+
+  res.render('update.ejs', { userEdit: user });
+}
+
+const postUpdateUser = async (req, res) => {
+  let { id, email, fullName, password } = req.body;
+
+  try {
+    await putupdateUser(id, email, fullName, password);
+    res.send(`<script>
+          window.onload = function() {
+            alert("Updated");
+            window.location.href = "/management";
+                  };
+      </script>
+              `)
+    res.redirect('/management');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error updating user');
+  }
+};
 
 
+const getDeletePage = async (req, res) => {
+
+  const userId = req.params.id;
+  let [result, fields] = await connection.query('select * from Users where id = ?', [userId]);
+  console.log(">>>check results: ", userId)
+  let user = result && result.length > 0 ? result[0] : {};
+  res.render('delete.ejs', { userDelete: user });
+}
+
+const postDeleteUser = async (req, res) => {
+  let userId = req.body.userId;
+  let email = req.body.email;
+  let name = req.body.accname;
+  let city = req.body.city;
+
+  await deleteUserById(userId)
+  res.send(
+    `<script>
+          window.onload = function() {
+            alert("Deleted");
+            window.location.href = "/management";
+                  };
+      </script>
+              `);
+  //res.redirect('/');
+}
 
 module.exports = {
   getHomePage,
@@ -183,6 +243,11 @@ module.exports = {
   getNewsPage,
   getUpload,
   postUpload,
-  uploadMultiFiles
+  uploadMultiFiles,
+  getManagement,
+  getUpdatePage,
+  postUpdateUser,
+  getDeletePage,
+  postDeleteUser,
 
 }

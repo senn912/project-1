@@ -1,0 +1,75 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f6f9;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+</style>
+
+<body>
+    <div>
+        <div class="navbar">
+            <div class="nav-left">
+                <a href="/"><img class="logo1" src="/images/logo4.webp" alt="Manifox Logo"></a>
+            </div>
+            <div class="nav-menu">
+                <a href="/">Home</a>
+                <a href="/news">News</a>
+                <a href="/upload">Upload</a>
+                <a class="active" href="/management">Management</a>
+
+            </div>
+
+            <div class="nav-right">
+
+                <% if (user) { %>
+                    <div class="btn">
+                        <span>Hello, <%= user.fullName %></span>
+                        <div>
+                            <a href="/logout">Log out</a>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <a class="btn" href="/login">Login</a>
+                        <a class="btn" href="/create">Create</a>
+                        <% } %>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-add-new">
+        <form action="/delete-user" method="post">
+            <fieldset>
+                <legend>Delete users</legend>
+                <div class="input-group d-none">
+                    <label>Id:</label>
+                    <input type="text" name="userId" value="<%=userDelete.id %>" readonly />
+                </div>
+                <div class="input-group ">
+                    <label>Are u sure to delete this user with Email:</label>
+                    <input type="text" name="email" value="<%=userDelete.email %>" readonly />
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn btn-confirm">Confirm</button>
+                    <button type="button" class="btn btn-back" onclick="window.history.back()">Back</button>
+                </div>
+
+    </div>
+    </fieldset>
+    </form>
+    </div>
+</body>
+
+</html>
