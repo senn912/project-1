@@ -111,19 +111,26 @@ const postUpload = async (req, res) => {
   console.log(req.file);
 
   if (req.fileValidationError) {
-    return res.send(req.fileValidationError);
+    return res.send(`
+      <script>
+          window.onload = function() {
+            alert("It is not image file");
+            window.location.href = "/upload";
+                  };
+      </script>
+              `);
   }
   else if (!req.file) {
-    return res.send('Please select an image to upload');
+    return res.send(`
+      <script>
+          window.onload = function() {
+            alert("Please choose the image file to upload");
+            window.location.href = "/upload";
+                  };
+      </script>
+              `);
   }
-  // else if (req instanceof multer.MulterError) {
-  //   return res.send(req.err);
-  // }
-  // else if (req.err) {
-  //   return res.send(req.err);
-  // }
 
-  // Display uploaded image
   res.send(`
     You have uploaded this image:
     <hr/>
@@ -140,10 +147,17 @@ const uploadMultiFiles = async (req, res) => {
   if (req.fileValidationError) {
     return res.send(req.fileValidationError);
   }
-  else if (!req.files) {
-    return res.send('Please select an image to upload');
+  else if (!req.files || req.files == 0) {
+    return res.send(`
+      <script>
+          window.onload = function() {
+            alert("Please choose the image file to upload");
+            window.location.href = "/upload";
+                  };
+      </script>
+              `);
   }
- 
+
 
   let result = "You have uploaded these images: <hr />";
   const files = req.files;

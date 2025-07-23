@@ -15,10 +15,7 @@ const getAllUsers = async (req, res) => {
 
 const createNewUser = async (req, res) => {
 
-    // let email = req.body.email;
-    // let fullName = req.body.fullName;
-    // let nickName = req.body.nickName;
-    // let password = req.body.password;
+    
 
     const { email, fullName, nickName, password } = req.body || {};
     if (!email || !fullName || !nickName || !password) {
@@ -63,7 +60,7 @@ const updateUser = async (req, res) => {
 
 
 const deleteUser = async (req, res) => {
-    const { id } = req.params || {};
+    const id = req.query.id || {};
     if (!id) {
         return res.status(200).json({
             message: 'missing',
