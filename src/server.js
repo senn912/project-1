@@ -32,7 +32,6 @@ initMiddleware(app);
 //khai báo route
 app.use('/', webRoutes);
 
-
 //init api route
 initAPIRoute(app);
 

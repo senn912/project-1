@@ -9,7 +9,7 @@ const getAllUsers = async (req, res) => {
     const [rows, fields] = await connection.execute('select * from Users');
 
     return res.status(200).json({
-        message: 'zzz',
+        message: 'ok',
         data: rows
     })
 }
@@ -17,13 +17,13 @@ const getAllUsers = async (req, res) => {
 const createNewUser = async (req, res) => {
     const { email, fullName, nickName, password } = req.body || {};
     if (!email || !fullName || !nickName || !password) {
-        res.status(200).json({
+        res.status(404).json({
             message: 'missing',
         })
     }
 
     await postInsertUser(email, fullName, nickName, password);
-    res.status(200).json({
+    res.status(201).json({
         message: 'ok',
 
     })
@@ -34,7 +34,7 @@ const createNewUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const { id, email, fullName, password } = req.body || {};
     if (!id) {
-        return res.status(200).json({
+        return res.status(404).json({
             message: 'missing id',
         })
     }
@@ -46,7 +46,7 @@ const updateUser = async (req, res) => {
         });
     }
     if (!email || !fullName || !password) {
-        return res.status(200).json({
+        return res.status(404).json({
             message: 'missing infor',
         })
     }
@@ -60,7 +60,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const id = req.body.id || {};
     if (!id) {
-        return res.status(200).json({
+        return res.status(404).json({
             message: 'missing',
         })
     }
@@ -84,6 +84,11 @@ const loginUser = async (req, res) => {
         const user = rows[0];
         console.log("check user: ", user)
         const match = await bcrypt.compare(password, user.password);
+        req.session.user = {
+            id: user.id,
+            fullName: user.fullName,
+            nickName: user.nickName,
+        };
         if (match) {
             return res.status(200).json({
                 message: 'done'
@@ -91,14 +96,16 @@ const loginUser = async (req, res) => {
         }
     }
     else if (!nickName || !password) {
-        return res.status(401).json({
+        return res.status(404).json({
             message: 'nickname and password are required'
         })
     }
 
-    return res.status(401).json({
+    return res.status(404).json({
         message: 'nickname or password are wrong'
     })
+    
+
 }
 module.exports = {
     getAllUsers,

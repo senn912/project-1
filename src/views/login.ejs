@@ -80,19 +80,19 @@
 <body>
     <div><a href="/"> <img class="logo" src="/images/logo4.webp"></div></a>
     <div class="form-add-new">
-        <form action="/login" method="post">
+        <form id="loginForm">
             <fieldset>
                 <legend>Login</legend>
                 <div class="input-group">
                     <label>Name:</label>
-                    <input type="text" name="nickName" />
+                    <input type="text" name="nickName" id="nickName" />
                 </div>
                 <div class="input-group">
                     <label>Password:</label>
-                    <input type="password" name="password" />
+                    <input type="password" name="password" id="password" />
                 </div>
                 <div>
-                    <button>Submit </button>
+                    <button type="submit">Submit</button>
                 </div>
             </fieldset>
         </form>
@@ -101,6 +101,36 @@
         <a href="/create" class="create-button">Create</a>
         <a href="/" class="home-button">Home</a>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const nickName = document.getElementById("nickName").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const response = await axios.post("/api/v1/login", {
+                    nickName,
+                    password
+                }, {
+                    withCredentials: true // quan trọng để gửi cookie/session nếu có
+                });
+
+                const data = response.data;
+
+                if (data.message === "done") {
+                    alert("Login success");
+                    window.location.href = "/";
+                } else {
+                    alert("Wrong password or nick name");
+                }
+            } catch (error) {
+                console.error("Lỗi khi gọi API:", error);
+                alert("Có lỗi xảy ra khi đăng nhập");
+            }
+        });
+    </script>
 
 </body>
 

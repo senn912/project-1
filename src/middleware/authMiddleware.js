@@ -1,3 +1,5 @@
+const cookieParser = require('cookie-parser'); 
+const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
 const session = require('express-session');
@@ -9,6 +11,10 @@ const initMiddleware = (app) => {
     app.use(express.urlencoded({ extended: true }));
 
     app.use(morgan('combined'));
+    app.use(cors({
+        origin: 'http://localhost:8088',
+        credentials: true
+    }));
 
     app.use(session({
         secret: 'secret_key',
