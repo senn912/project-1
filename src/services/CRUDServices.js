@@ -62,6 +62,7 @@ const checkId = async (id) => {
     return rows;
 }
 
+
 const deleteUserById = async (id) => {
     const [rows] = await connection.execute(
         'delete FROM Users WHERE id = ?', [id]

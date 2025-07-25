@@ -1,7 +1,8 @@
 const { json } = require("express");
 const connection = require('../config/database');
-const { postInsertUser, putupdateUser, checkId, deleteUserById } = require('../services/CRUDServices')
-
+const { postInsertUser, putupdateUser, checkId, deleteUserById, postCheckNickname } = require('../services/CRUDServices')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 
 const getAllUsers = async (req, res) => {
@@ -14,12 +15,9 @@ const getAllUsers = async (req, res) => {
 }
 
 const createNewUser = async (req, res) => {
-
-    
-
     const { email, fullName, nickName, password } = req.body || {};
     if (!email || !fullName || !nickName || !password) {
-        return res.status(200).json({
+        res.status(200).json({
             message: 'missing',
         })
     }
@@ -60,7 +58,7 @@ const updateUser = async (req, res) => {
 
 
 const deleteUser = async (req, res) => {
-    const id = req.query.id || {};
+    const id = req.body.id || {};
     if (!id) {
         return res.status(200).json({
             message: 'missing',
@@ -79,9 +77,33 @@ const deleteUser = async (req, res) => {
     });
 }
 
+const loginUser = async (req, res) => {
+    const { nickName, password } = req.body || {};
+    let [rows] = await postCheckNickname(nickName);
+    if (rows.length > 0) {
+        const user = rows[0];
+        console.log("check user: ", user)
+        const match = await bcrypt.compare(password, user.password);
+        if (match) {
+            return res.status(200).json({
+                message: 'done'
+            })
+        }
+    }
+    else if (!nickName || !password) {
+        return res.status(401).json({
+            message: 'nickname and password are required'
+        })
+    }
+
+    return res.status(401).json({
+        message: 'nickname or password are wrong'
+    })
+}
 module.exports = {
     getAllUsers,
     createNewUser,
     deleteUser,
     updateUser,
+    loginUser,
 }

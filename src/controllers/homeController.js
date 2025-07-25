@@ -57,7 +57,14 @@ const postCreateUser = async (req, res) => {
   let fullName = req.body.fullName;
   let nickName = req.body.nickName;
   let password = req.body.password;
-
+  if (!email || !fullName || !nickName || !password) {
+    return res.send(`
+            <script>
+                alert("Fill full the information");
+                window.location.href = "/create";
+            </script>
+        `);
+  }
   // check email
   if (!email.includes('@')) {
     return res.send(`
