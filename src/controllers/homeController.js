@@ -218,16 +218,13 @@ const getDeletePage = async (req, res) => {
 
   const userId = req.params.id;
   let [result, fields] = await connection.query('select * from Users where id = ?', [userId]);
-  console.log(">>>check results: ", userId)
   let user = result && result.length > 0 ? result[0] : {};
   res.render('delete.ejs', { userDelete: user });
 }
 
 const postDeleteUser = async (req, res) => {
   let userId = req.body.userId;
-  let email = req.body.email;
-  let name = req.body.accname;
-  let city = req.body.city;
+
 
   await deleteUserById(userId)
   res.send(

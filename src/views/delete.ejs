@@ -71,5 +71,22 @@
     </form>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    async function deleteUser(userId) {
+        const confirmed = confirm("Are you sure you want to delete this user?");
+        if (!confirmed) return;
+
+        try {
+            const response = await axios.delete(`/api/v1/users/${userId}`);
+            alert("User deleted successfully!");
+            window.location.href = "/management"; 
+        } catch (error) {
+            console.error("Delete failed:", error);
+            alert("Failed to delete user.");
+        }
+    }
+</script>
+
 
 </html>

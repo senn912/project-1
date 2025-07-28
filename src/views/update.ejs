@@ -35,47 +35,94 @@
             <div class="nav-right">
 
                 <% if (user) { %>
-                    <div class="btn">
+                    <div class="btn1">
                         <span>Hello, <%= user.fullName %></span>
                         <div>
                             <a href="/logout">Log out</a>
                         </div>
                     </div>
                     <% } else { %>
-                        <a class="btn" href="/login">Login</a>
-                        <a class="btn" href="/create">Create</a>
+                        <a class="btn1" href="/login">Login</a>
+                        <a class="btn1" href="/create">Create</a>
                         <% } %>
 
             </div>
         </div>
     </div>
-    <div class="form-add-new">
-        <form action="/update-user" method="post">
+    <div class="updateForm">
+        <form id="updateForm">
             <fieldset>
                 <legend>Update users</legend>
-                <div class="input-group d-none">
-                    <label>Id:</label>
-                    <input type="text" name="id" value="<%=userEdit.id %>" readonly />
+
+                <div class="input-group">
+                    <label>ID:</label>
+                    <input type="text" id="id" name="id" value="<%=userEdit.id %>" readonly />
                 </div>
-                <div class="input-group ">
+
+                <div class="input-group">
                     <label>Email:</label>
-                    <input type="text" name="email" value="<%=userEdit.email %>" />
+                    <input type="text" id="email" name="email" value="<%=userEdit.email %>" />
                 </div>
+
                 <div class="input-group">
                     <label>Full Name:</label>
-                    <input type="text" name="fullName" value="<%=userEdit.fullName %>" />
+                    <input type="text" id="fullName" name="fullName" value="<%=userEdit.fullName %>" />
                 </div>
+
+                <div class="input-group">
+                    <label>Nick Name:</label>
+                    <input type="text" id="nickName" name="nickName" value="<%=userEdit.nickName %>" readonly />
+                </div>
+
                 <div class="input-group">
                     <label>Password:</label>
-                    <input type="text" name="password" />
+                    <input type="password" id="password" name="password"
+                        placeholder="Leave blank to keep current password" value="<%=userEdit.password %>" />
                 </div>
+
                 <div>
-                    <button class="btn btn-confirm"> Save </button>
+                    <button class="btn btn-confirm" type="submit">Save</button>
                     <button type="button" class="btn btn-back" onclick="window.history.back()">Back</button>
                 </div>
             </fieldset>
         </form>
+
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('updateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const id = document.getElementById('id').value;
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await axios.put(`/api/v1/users/${id}`, {
+                    fullName,
+                    email,
+                    password,
+                });
+
+                alert(res.data.message || 'Updated successfully');
+                window.location.href = '/management'; // quay lại trang danh sách
+            } catch (err) {
+                console.error(err);
+
+                const message = err.response?.data?.message;
+                if (message === "missing infor") {
+                    alert("Missing information");
+                    window.location.href = `/update/${id}`;
+                } else if (message === "wrong format of email") {
+                    alert("wrong format of email");
+                    window.location.href = `/update/${id}`
+                }
+
+            }
+        });
+    </script>
+
 </body>
 
 </html>

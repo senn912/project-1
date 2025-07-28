@@ -52,15 +52,15 @@
             <div class="nav-right">
 
                 <% if (user) { %>
-                    <div class="btn">
+                    <div class="btn1">
                         <span>Hello, <%= user.fullName %></span>
                         <div>
                             <a href="/logout">Log out</a>
                         </div>
                     </div>
                     <% } else { %>
-                        <a class="btn" href="/login">Login</a>
-                        <a class="btn" href="/create">Create</a>
+                        <a class="btn1" href="/login">Login</a>
+                        <a class="btn1" href="/create">Create</a>
                         <% } %>
 
             </div>
@@ -78,43 +78,67 @@
                 <th>Full Name</th>
                 <th> Actions</th>
             </tr>
+            <tbody id="userTableBody">
 
-            <% listUsers.forEach(function(users,index) { %>
-                <tr>
-                    <td>
-                        <%=users.id %>
-                    </td>
-                    <td>
-                        <%=users.email %>
-                    </td>
-                    <td>
-                        <%=users.nickName %>
-                    </td>
-                    <td>
-                        <%=users.fullName %>
-                    </td>
-                    <td>
-                        <a href="/update/<%=users.id %>"> Edit</a>
-                        <a href="/delete/<%=users.id %>"> Delete</a>
-                    </td>
-                </tr>
-                <% }); %>
-
+            </tbody>
         </table>
-        <!-- <div class="container">
 
-        <div class="slogan">Manifox Technology Solutions</div>
-        <div class="description">
-            Welcome to Manifox – Check management
-        </div>
-        <div><img class="ronaldo" src="/images/kai.jpg"> </div>
-    </div> -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            async function showUsers() {
+                try {
+                    const response = await axios.get('/api/v1/users');
+                    const users = response.data.data;
 
+                    const tableBody = document.getElementById("userTableBody");
+                    tableBody.innerHTML = ""; // clear old data
 
-        <footer>
-            &copy; 2025 Manifox Technology. All rights reserved.
-        </footer>
+                    users.forEach(user => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.email}</td>
+                        <td>${user.nickName}</td>
+                        <td>${user.fullName}</td>
+                        <td >
+                            <button class="btn1" onclick="window.location.href='/update/${user.id}'">Update</button> 
+                            <button class="btn1" onclick="handleDelete(${user.id})">Delete</button>
+                        </td>
+                    `;
+                        tableBody.appendChild(row);
+                    });
 
+                } catch (error) {
+                    console.error("Failed to load users:", error);
+                    alert("Error fetching users");
+                }
+            }
+
+            showUsers(); 
+        </script>
+        <script>
+            async function handleDelete(userId) {
+                const confirmDelete = confirm(`Are you sure you want to delete user ID ${userId}?`);
+                if (!confirmDelete) return;
+
+                try {
+                    const response = await axios.delete(`/api/v1/users/${userId}`);
+                    alert("User deleted successfully");
+                    showUsers(); // Gọi lại để cập nhật danh sách
+                } catch (error) {
+                    console.error("Error deleting user:", error);
+                    alert("Failed to delete user");
+                }
+            }
+        </script>
+
+    </div>
+    <footer>
+        &copy; 2025 Manifox Technology. All rights reserved.
+    </footer>
+</body>
+
+</html>
 </body>
 
 </html>

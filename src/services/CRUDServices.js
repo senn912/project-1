@@ -17,6 +17,14 @@ const postCheckNickname = async (nickName) => {
     );
     return [rows]
 }
+const postCheckEmail = async (email) => {
+    let [rows] = await connection.query(
+        `SELECT * FROM Users WHERE email = ?`,
+        [email]
+    );
+    return [rows]
+}
+
 
 const postInsertUser = async (email, fullName, nickName, password) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds)
@@ -87,5 +95,6 @@ module.exports = {
     checkId,
     deleteUserById,
     getAllUsers,
+    postCheckEmail,
 
 }

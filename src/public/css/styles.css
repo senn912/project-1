@@ -56,20 +56,21 @@ footer {
 }
 
 .btn {
-    background-color: #399645;
-    color: white;
     padding: 8px 16px;
-    text-decoration: none;
-    border-radius: 4px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
 }
 
 .btn:hover {
     background-color: #127e6d;
 }
 
-/* Main content */
+
 .container {
     text-align: center;
     padding: 40px 20px;
@@ -188,7 +189,7 @@ footer {
     background-color: #c82333;
 }
 
-.form-add-new {
+.updateForm {
     max-width: 500px;
     margin: 40px auto;
     background-color: #fdfdfd;
@@ -325,4 +326,118 @@ td a.edit-btn {
 td a.delete-btn {
     background-color: #dc3545;
     color: white;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 4px;
+}
+
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+/* Màu cho từng nút */
+.update-btn {
+    background-color: #0f631ba2;
+}
+
+.update-btn:hover {
+    background-color: #034926ce;
+}
+
+.delete-btn {
+    background-color: #0f631ba2;
+}
+
+.delete-btn:hover {
+    background-color: #29a71dc2;
+}
+
+
+.btn1 {
+    /* Màu nền nút: Sử dụng màu xanh ngọc từ ảnh */
+    background-color: #1abc9c;
+    /* Một biến thể của màu xanh ngọc, bạn có thể điều chỉnh */
+    color: white;
+    /* Màu chữ trắng để nổi bật trên nền xanh */
+
+    /* Khoảng cách bên trong nút */
+    padding: 12px 25px;
+    /* Điều chỉnh để nút trông cân đối */
+    margin: 8px 0;
+    /* Khoảng cách với các phần tử khác */
+
+    /* Định dạng đường viền và góc */
+    border: none;
+    /* Không có đường viền */
+    border-radius: 8px;
+    /* Bo tròn góc nhẹ nhàng để nút trông mềm mại hơn */
+    cursor: pointer;
+    /* Biểu tượng con trỏ khi di chuột qua */
+    width: auto;
+    /* Chiều rộng tự động theo nội dung, hoặc 100% nếu muốn full-width */
+    display: inline-block;
+    /* Để có thể căn chỉnh tốt hơn nếu không phải full-width */
+    text-align: center;
+    /* Căn giữa chữ */
+    text-decoration: none;
+    /* Bỏ gạch chân nếu là thẻ <a> */
+
+    /* Hiệu ứng khi di chuột qua */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Hiệu ứng chuyển động mượt mà */
+
+    /* Đổ bóng nhẹ nhàng để tạo chiều sâu */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Đổ bóng xuống dưới và sang phải */
+
+    /* Font chữ */
+    font-family: Arial, sans-serif;
+    /* Hoặc font bạn đang dùng cho trang */
+    font-size: 16px;
+    /* Kích thước chữ */
+    font-weight: bold;
+    /* Chữ in đậm */
+}
+
+/* Hiệu ứng khi di chuột qua nút */
+.btn1:hover {
+    background-color: #16a085;
+    /* Màu xanh đậm hơn một chút khi hover */
+    transform: translateY(-2px);
+    /* Nút nhấc lên nhẹ nhàng */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    /* Bóng đổ đậm hơn */
+}
+
+/* Hiệu ứng khi nút được nhấn */
+.btn1:active {
+    background-color: #138d75;
+    /* Màu xanh đậm hơn nữa khi nhấn */
+    transform: translateY(0);
+    /* Nút trở về vị trí cũ, tạo cảm giác nhấn xuống */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Bóng đổ nhẹ hơn */
+}
+
+/* Tùy chỉnh cho trạng thái disabled (nếu có) */
+.btn1:disabled {
+    background-color: #cccccc;
+    /* Màu xám khi vô hiệu hóa */
+    cursor: not-allowed;
+    /* Con trỏ biểu thị không được phép */
+    box-shadow: none;
+    transform: none;
+    opacity: 0.6;
+    /* Hơi mờ đi */
 }

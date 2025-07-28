@@ -1,6 +1,6 @@
 const { json } = require("express");
 const connection = require('../config/database');
-const { postInsertUser, putupdateUser, checkId, deleteUserById, postCheckNickname } = require('../services/CRUDServices')
+const { postInsertUser, putupdateUser, checkId, deleteUserById, postCheckNickname, postCheckEmail } = require('../services/CRUDServices')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -16,35 +16,47 @@ const getAllUsers = async (req, res) => {
 
 const createNewUser = async (req, res) => {
     const { email, fullName, nickName, password } = req.body || {};
+
     if (!email || !fullName || !nickName || !password) {
-        res.status(404).json({
+        return res.status(400).json({
             message: 'missing',
         })
     }
-
+    if (!email.includes('@')) {
+        return res.status(400).json({
+            message: 'wrong format of email'
+        })
+    }
+    let [rowsNickname] = await postCheckNickname(nickName);
+    if (rowsNickname.length > 0) {
+        return res.status(400).json({
+            message: 'nickname has existed'
+        })
+    }
+    let [rowsEmail] = await postCheckEmail(email);
+    if (rowsEmail.length > 0) {
+        return res.status(400).json({
+            message: 'Email has existed'
+        })
+    }
     await postInsertUser(email, fullName, nickName, password);
-    res.status(201).json({
+    return res.status(201).json({
         message: 'ok',
-
     })
 
 }
 
 
 const updateUser = async (req, res) => {
-    const { id, email, fullName, password } = req.body || {};
-    if (!id) {
-        return res.status(404).json({
-            message: 'missing id',
+    const { email, fullName, password } = req.body || {};
+    const id = req.params.id
+
+    if (!email.includes('@')) {
+        return res.status(400).json({
+            message: 'wrong format of email'
         })
     }
-    const rows = await checkId(id);
 
-    if (rows.length === 0) {
-        return res.status(404).json({
-            message: 'ID not found',
-        });
-    }
     if (!email || !fullName || !password) {
         return res.status(404).json({
             message: 'missing infor',
@@ -58,7 +70,7 @@ const updateUser = async (req, res) => {
 
 
 const deleteUser = async (req, res) => {
-    const id = req.body.id || {};
+    const id = req.params.id || {};
     if (!id) {
         return res.status(404).json({
             message: 'missing',
@@ -104,13 +116,15 @@ const loginUser = async (req, res) => {
     return res.status(404).json({
         message: 'nickname or password are wrong'
     })
-    
 
 }
+
+
 module.exports = {
     getAllUsers,
     createNewUser,
     deleteUser,
     updateUser,
     loginUser,
+
 }
