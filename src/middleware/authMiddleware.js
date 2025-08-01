@@ -1,37 +1,31 @@
-const cookieParser = require('cookie-parser'); 
-const cors = require('cors');
-const express = require('express');
-const morgan = require('morgan');
-const session = require('express-session');
-var appRoot = require('app-root-path');
-const multer = require('multer');
+const jwt = require('jsonwebtoken');
 
-const initMiddleware = (app) => {
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+// Nên dùng biến môi trường trong thực tế
+const secretKey = process.env.JWT_SECRET || 'your_secret_key';
 
-    app.use(morgan('combined'));
-    app.use(cors({
-        origin: 'http://localhost:8088',
-        credentials: true
-    }));
+const authMiddleware = (req, res, next) => {
+    // Lấy token từ header Authorization (Bearer <token>)
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // tách 'Bearer <token>' lấy token
 
-    app.use(session({
-        secret: 'secret_key',
-        resave: false,
-        saveUninitialized: false,
-        cookie: { secure: false }
-    }));
+    if (!token) {
+        return res.status(401).json({
+            message: 'No token provided',
+        });
+    }
 
-    app.use((req, res, next) => {
-        res.locals.user = req.session.user || null;
-        console.log('res.locals.user = ', res.locals.user);
+    // Xác minh token
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({
+                message: 'Invalid or expired token',
+            });
+        }
+
+        // Nếu hợp lệ, lưu thông tin user vào request để sử dụng sau
+        req.user = decoded;
         next();
     });
 };
 
-
-
-module.exports = { 
-    initMiddleware, 
-};
+module.exports = authMiddleware;

@@ -26,7 +26,7 @@ const { table } = require('console');
 configViewEngine(app);
 
 
-const { initMiddleware } = require('./middleware/authMiddleware');
+const { initMiddleware } = require('./middleware/session');
 initMiddleware(app);
 
 //khai báo route

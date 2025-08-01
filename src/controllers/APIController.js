@@ -22,20 +22,23 @@ const createNewUser = async (req, res) => {
             message: 'missing',
         })
     }
-    if (!email.includes('@')) {
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
         return res.status(400).json({
-            message: 'wrong format of email'
-        })
+            message: "Email format is wrong"
+        });
     }
+
     let [rowsNickname] = await postCheckNickname(nickName);
     if (rowsNickname.length > 0) {
-        return res.status(400).json({
+        return res.status(409).json({
             message: 'nickname has existed'
         })
     }
     let [rowsEmail] = await postCheckEmail(email);
     if (rowsEmail.length > 0) {
-        return res.status(400).json({
+        return res.status(409).json({
             message: 'Email has existed'
         })
     }
@@ -51,17 +54,20 @@ const updateUser = async (req, res) => {
     const { email, fullName, password } = req.body || {};
     const id = req.params.id
 
-    if (!email.includes('@')) {
-        return res.status(400).json({
-            message: 'wrong format of email'
-        })
-    }
-
     if (!email || !fullName || !password) {
-        return res.status(404).json({
+        return res.status(400).json({
             message: 'missing infor',
         })
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({
+            message: "Email format is wrong"
+        });
+    }
+
+
     await putupdateUser(id, email, fullName, password);
     res.status(200).json({
         message: 'Updated',
@@ -72,7 +78,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const id = req.params.id || {};
     if (!id) {
-        return res.status(404).json({
+        return res.status(400).json({
             message: 'missing',
         })
     }
@@ -108,16 +114,17 @@ const loginUser = async (req, res) => {
         }
     }
     else if (!nickName || !password) {
-        return res.status(404).json({
+        return res.status(400).json({
             message: 'nickname and password are required'
         })
     }
 
-    return res.status(404).json({
+    return res.status(401).json({
         message: 'nickname or password are wrong'
     })
 
 }
+
 
 
 module.exports = {
@@ -126,5 +133,6 @@ module.exports = {
     deleteUser,
     updateUser,
     loginUser,
+
 
 }
