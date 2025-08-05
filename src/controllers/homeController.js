@@ -3,15 +3,33 @@ const { postCheckUser, postCheckNickname, postInsertUser, getAllUsers, deleteUse
 const multer = require('multer');
 
 const bcrypt = require('bcrypt');
+const authMiddleware = require('../middleware/authMiddleware');
 const saltRounds = 10;
+const jwt = require('jsonwebtoken');
+const secretKey = process.env.JWT_SECRET || 'your_secret_key';
 
 const getHomePage = (req, res) => {
-  res.render('home.ejs');
-}
+  const token = req.cookies.token;
 
-const getLogin = (req, res) => {
+  if (!token) {
+    // Chưa login
+    return res.render('home.ejs', { user: null });
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      // Token không hợp lệ hoặc hết hạn
+      return res.render('home.ejs', { user: null });
+    }
+
+    // Đã login, gửi user vào view
+    return res.render('home.ejs', { user: decoded });
+  });
+};
+
+const getLogin = (authMiddleware, (req, res) => {
   res.render('login.ejs');
-}
+});
 
 const getCreateUser = (req, res) => {
   res.render('create.ejs');
@@ -108,7 +126,30 @@ const getNewsPage = (req, res) => {
 }
 
 const getUpload = (req, res) => {
-  res.render('upload.ejs');
+  const token = req.cookies.token;
+
+  if (!token) {
+    // Chưa login
+    return res.send(`<script>
+        alert("Please log in to manage accounts");
+        window.location.href = "/login";
+      </script>`)
+
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      // Token không hợp lệ hoặc hết hạn
+      return res.send(`<script>
+        alert("Please log in to manage accounts");
+        window.location.href = "/login";
+      </script>`)
+    }
+
+    // Đã login, gửi user vào view
+    return res.render('upload.ejs', { user: decoded });
+  });
+  // res.render('upload.ejs');
 }
 
 // const upload = multer().single('profile_pic');
@@ -150,6 +191,7 @@ const postUpload = async (req, res) => {
 const uploadMulti = multer().array('multiple_images', 3);
 const uploadMultiFiles = async (req, res) => {
 
+
   console.log(req.files)
   if (req.fileValidationError) {
     return res.send(req.fileValidationError);
@@ -179,9 +221,35 @@ const uploadMultiFiles = async (req, res) => {
 };
 
 const getManagement = async (req, res) => {
-  let result = await getAllUsers();
-  return res.render('management.ejs', { listUsers: result })
+  const token = req.cookies.token;
 
+  if (!token) {
+    // Chưa login
+    return res.send(`<script>
+        alert("Please log in to manage accounts");
+        window.location.href = "/login";
+      </script>`)
+
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      // Token không hợp lệ hoặc hết hạn
+      return res.send(`<script>
+        alert("Please log in to manage accounts");
+        window.location.href = "/login";
+      </script>`)
+    }
+
+    // Đã login, gửi user vào view
+    res.render('management.ejs', { user: decoded });
+  });
+
+  const result = await getAllUsers();
+  res.render('management.ejs', {
+    user: decoded,
+    listUsers: result
+  });
 }
 
 const getUpdatePage = async (req, res) => {
@@ -253,5 +321,6 @@ module.exports = {
   postUpdateUser,
   getDeletePage,
   postDeleteUser,
+
 
 }

@@ -22,12 +22,18 @@ app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodiess
 const mysql = require('mysql2');
 const { table } = require('console');
 
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 // config template engine
 configViewEngine(app);
 
 
 const { initMiddleware } = require('./middleware/session');
 initMiddleware(app);
+
+const { authMiddleware } = require('./middleware/authMiddleware');
+// app.use( authMiddleware);      
 
 //khai báo route
 app.use('/', webRoutes);

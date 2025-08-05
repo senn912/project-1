@@ -3,6 +3,8 @@ const connection = require('../config/database');
 const { postInsertUser, putupdateUser, checkId, deleteUserById, postCheckNickname, postCheckEmail } = require('../services/CRUDServices')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jwt = require("jsonwebtoken");
+const secretKey = process.env.JWT_SECRET || 'your-secret-key';
 
 
 const getAllUsers = async (req, res) => {
@@ -97,27 +99,49 @@ const deleteUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { nickName, password } = req.body || {};
+    
+    if (!nickName || !password) {
+        return res.status(400).json({
+            message: 'nickname and password are required'
+        })
+    }
+
     let [rows] = await postCheckNickname(nickName);
     if (rows.length > 0) {
         const user = rows[0];
         console.log("check user: ", user)
         const match = await bcrypt.compare(password, user.password);
-        req.session.user = {
-            id: user.id,
-            fullName: user.fullName,
-            nickName: user.nickName,
-        };
+
         if (match) {
+            const token = jwt.sign(
+                {
+                    id: user.id,
+                    fullName: user.fullName,
+                    nickName: user.nickName,
+                },
+                process.env.JWT_SECRET || 'your-secret-key',
+                { expiresIn: '2h' }
+            );
+            
+            res.cookie('token', token, {
+                httpOnly: true,         // Bảo vệ khỏi XSS
+                secure: false,          // true nếu dùng HTTPS
+                sameSite: 'Strict',     // Chống CSRF
+                maxAge: 2 * 60 * 60 * 1000 // 2 giờ
+            });
+
             return res.status(200).json({
-                message: 'done'
+                message: 'done',
+                token: token,
+                user: {
+                    id: user.id,
+                    fullName: user.fullName,
+                    nickName: user.nickName,
+                }
             })
         }
     }
-    else if (!nickName || !password) {
-        return res.status(400).json({
-            message: 'nickname and password are required'
-        })
-    }
+
 
     return res.status(401).json({
         message: 'nickname or password are wrong'
