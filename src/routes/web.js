@@ -50,10 +50,10 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-router.get('/update/:id', authMiddleware, getUpdatePage);
-router.post('/update-user', authMiddleware, postUpdateUser);
+router.get('/update/:id', adminMiddleware, getUpdatePage);
+router.post('/update-user', adminMiddleware, postUpdateUser);
 
-router.get('/delete/:id', getDeletePage);
-router.post('/delete-user', postDeleteUser);
+router.get('/delete/:id', adminMiddleware, getDeletePage);
+router.post('/delete-user', adminMiddleware, postDeleteUser);
 
 module.exports = router;
