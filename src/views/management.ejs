@@ -124,7 +124,7 @@
                 try {
                     const response = await axios.delete(`/api/v1/users/${userId}`);
                     alert("User deleted successfully");
-                    showUsers(); // Gọi lại để cập nhật danh sách
+                    // showUsers();  Gọi lại để cập nhật danh sách
                 } catch (error) {
                     console.error("Error deleting user:", error);
                     alert("Failed to delete user");

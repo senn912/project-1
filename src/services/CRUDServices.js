@@ -36,7 +36,9 @@ const postInsertUser = async (email, fullName, nickName, password) => {
 
 const putupdateUser = async (id, email, fullName, password) => {
     // Lấy thông tin cũ của user để giữ nguyên nếu không sửa
-    const [rows] = await connection.query(`SELECT * FROM Users WHERE id = ?`, [id]);
+    const [rows] = await connection.query(
+        `SELECT * FROM Users WHERE id = ?`, [id]
+    );
     const user = rows[0];
     if (!user) throw new Error('User not found');
 

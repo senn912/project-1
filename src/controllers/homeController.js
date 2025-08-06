@@ -8,26 +8,32 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.JWT_SECRET || 'your_secret_key';
 
-const getHomePage = (req, res) => {
+
+
+const checkJWT = (req, res) => {
   const token = req.cookies.token;
 
   if (!token) {
-    // Chưa login
-    return res.render('home.ejs', { user: null });
+    return res.send(' No token found in cookies');
   }
 
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
-      // Token không hợp lệ hoặc hết hạn
-      return res.render('home.ejs', { user: null });
+      return res.send('Invalid or expired token');
     }
 
-    // Đã login, gửi user vào view
-    return res.render('home.ejs', { user: decoded });
+    return res.send(`Token is valid. Hello ${decoded.fullName}`);
   });
 };
 
-const getLogin = (authMiddleware, (req, res) => {
+
+const getHomePage = (req, res) => {
+  const user = res.locals.user || null;
+  return res.render('home.ejs', { user });
+};
+
+
+const getLogin = ((req, res) => {
   res.render('login.ejs');
 });
 
@@ -122,40 +128,18 @@ const postCreateUser = async (req, res) => {
 }
 
 const getNewsPage = (req, res) => {
-  res.render('news.ejs');
+  const user = res.locals.user || null;
+  return res.render('news.ejs', { user });
 }
 
 const getUpload = (req, res) => {
-  const token = req.cookies.token;
-
-  if (!token) {
-    // Chưa login
-    return res.send(`<script>
-        alert("Please log in to manage accounts");
-        window.location.href = "/login";
-      </script>`)
-
-  }
-
-  jwt.verify(token, secretKey, (err, decoded) => {
-    if (err) {
-      // Token không hợp lệ hoặc hết hạn
-      return res.send(`<script>
-        alert("Please log in to manage accounts");
-        window.location.href = "/login";
-      </script>`)
-    }
-
-    // Đã login, gửi user vào view
-    return res.render('upload.ejs', { user: decoded });
-  });
-  // res.render('upload.ejs');
+  res.render('upload.ejs')
 }
 
-// const upload = multer().single('profile_pic');
+
 
 const postUpload = async (req, res) => {
-  // 'profile_pic' is the name of our file input field in the HTML form
+
   console.log(req.file);
 
   if (req.fileValidationError) {
@@ -221,48 +205,33 @@ const uploadMultiFiles = async (req, res) => {
 };
 
 const getManagement = async (req, res) => {
-  const token = req.cookies.token;
-
-  if (!token) {
-    // Chưa login
-    return res.send(`<script>
-        alert("Please log in to manage accounts");
-        window.location.href = "/login";
-      </script>`)
-
-  }
-
-  jwt.verify(token, secretKey, (err, decoded) => {
-    if (err) {
-      // Token không hợp lệ hoặc hết hạn
-      return res.send(`<script>
-        alert("Please log in to manage accounts");
-        window.location.href = "/login";
-      </script>`)
-    }
-
-    // Đã login, gửi user vào view
-    res.render('management.ejs', { user: decoded });
-  });
 
   const result = await getAllUsers();
   res.render('management.ejs', {
-    user: decoded,
+    user: res.locals.user,
     listUsers: result
   });
 }
 
 const getUpdatePage = async (req, res) => {
+
   const userId = req.params.id;
   let [result, fields] = await connection.query('select * from Users where id = ?', [userId]);
   console.log(">>>check results: ", result)
 
   let user = result && result.length > 0 ? result[0] : {};
 
-  res.render('update.ejs', { userEdit: user });
+  res.render('update.ejs', {
+    userEdit: user,
+    user: req.user || res.locals.user
+  });
 }
 
 const postUpdateUser = async (req, res) => {
+  console.log('Cookies: ', req.cookies)
+
+  // Cookies that have been signed
+  console.log('Signed Cookies: ', req.signedCookies)
   let { id, email, fullName, password } = req.body;
 
   try {
@@ -303,7 +272,7 @@ const postDeleteUser = async (req, res) => {
                   };
       </script>
               `);
-  //res.redirect('/');
+
 }
 
 module.exports = {
@@ -321,6 +290,7 @@ module.exports = {
   postUpdateUser,
   getDeletePage,
   postDeleteUser,
+  checkJWT,
 
 
 }

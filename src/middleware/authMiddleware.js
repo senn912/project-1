@@ -6,16 +6,18 @@ const authMiddleware = (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-        return res.status(401).json({
-            message: 'No token provided',
-        });
+        return res.send(`<script>
+            alert("You must log in to access this page!");
+            window.location.href = "/login";
+        </script>`);
     }
 
     jwt.verify(token, secretKey, (err, decoded) => {
         if (err) {
-            return res.status(403).json({
-                message: 'Invalid or expired token',
-            });
+            return res.send(`<script>
+                alert("Invalid or expired session. Please log in again.");
+                window.location.href = "/login";
+            </script>`);
         }
 
         req.user = decoded;
