@@ -23,9 +23,9 @@ router.post('/login', postLoginUser);
 router.get('/create', getCreateUser);
 router.post('/create', postCreateUser);
 
-router.get('/news', getNewsPage);
+router.get('/news', checkAcc, getNewsPage);
 
-router.get('/management', authMiddleware,adminMiddleware, getManagement);
+router.get('/management', authMiddleware, adminMiddleware, getManagement);
 
 router.get('/upload', authMiddleware, getUpload);
 router.post('/upload-profile-pic', upload.single('profile_pic'), postUpload)
