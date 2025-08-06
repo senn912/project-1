@@ -5,14 +5,14 @@ const checkAcc = (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-        // Không có token, gán user là null
+        // ko co token, gan user = null ( chua dang nhap)
         res.locals.user = null;
         return next();
     }
 
     jwt.verify(token, secretKey, (err, decoded) => {
         if (err) {
-            // Token không hợp lệ hoặc hết hạn
+            // token k hop le, het han
             res.locals.user = null;
         } else {
             // Token hợp lệ

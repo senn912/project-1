@@ -28,7 +28,7 @@ const checkJWT = (req, res) => {
 
 
 const getHomePage = (req, res) => {
-  const user = res.locals.user || null;
+  const user = res.locals.user // || null;
   return res.render('home.ejs', { user });
 };
 

@@ -11,6 +11,7 @@ const { upload, upload1 } = require('../middleware/upload');
 var appRoot = require('app-root-path');
 const authMiddleware = require('../middleware/authMiddleware');
 const checkAcc = require('../middleware/checkAcc');
+const adminMiddleware = require('../middleware/adminMiddleware');
 
 router.get('/check-token', checkJWT);
 
@@ -24,7 +25,7 @@ router.post('/create', postCreateUser);
 
 router.get('/news', getNewsPage);
 
-router.get('/management', authMiddleware, getManagement);
+router.get('/management', authMiddleware,adminMiddleware, getManagement);
 
 router.get('/upload', authMiddleware, getUpload);
 router.post('/upload-profile-pic', upload.single('profile_pic'), postUpload)

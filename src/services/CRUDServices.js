@@ -34,7 +34,7 @@ const postInsertUser = async (email, fullName, nickName, password) => {
     return [result]
 }
 
-const putupdateUser = async (id, email, fullName, password) => {
+const putupdateUser = async (id, email, fullName, password, role) => {
     // Lấy thông tin cũ của user để giữ nguyên nếu không sửa
     const [rows] = await connection.query(
         `SELECT * FROM Users WHERE id = ?`, [id]
@@ -45,9 +45,10 @@ const putupdateUser = async (id, email, fullName, password) => {
     // Giữ nguyên giá trị nếu không nhập mới
     email = email || user.email;
     fullName = fullName || user.fullName;
+    role = role || user.role;
 
-    let query = `UPDATE Users SET email = ?, fullName = ?`;
-    let params = [email, fullName];
+    let query = `UPDATE Users SET email = ?, fullName = ?, role = ?`;
+    let params = [email, fullName, role];
 
     if (password && typeof password === 'string' && password.trim() !== '') {
         const hashedPassword = await bcrypt.hash(password, 10);

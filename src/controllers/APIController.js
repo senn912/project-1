@@ -53,7 +53,7 @@ const createNewUser = async (req, res) => {
 
 
 const updateUser = async (req, res) => {
-    const { email, fullName, password } = req.body || {};
+    const { email, fullName, password, role } = req.body || {};
     const id = req.params.id
 
     if (!email || !fullName || !password) {
@@ -70,7 +70,7 @@ const updateUser = async (req, res) => {
     }
 
 
-    await putupdateUser(id, email, fullName, password);
+    await putupdateUser(id, email, fullName, password, role);
     res.status(200).json({
         message: 'Updated',
     });
@@ -99,7 +99,7 @@ const deleteUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { nickName, password } = req.body || {};
-    
+
     if (!nickName || !password) {
         return res.status(400).json({
             message: 'nickname and password are required'
@@ -118,11 +118,12 @@ const loginUser = async (req, res) => {
                     id: user.id,
                     fullName: user.fullName,
                     nickName: user.nickName,
+                    role: user.role
                 },
                 process.env.JWT_SECRET || 'your-secret-key',
                 { expiresIn: '2h' }
             );
-            
+
             res.cookie('token', token, {
                 httpOnly: true,         // Bảo vệ khỏi XSS
                 secure: false,          // true nếu dùng HTTPS
@@ -137,6 +138,7 @@ const loginUser = async (req, res) => {
                     id: user.id,
                     fullName: user.fullName,
                     nickName: user.nickName,
+                    role: user.role
                 }
             })
         }
