@@ -26,7 +26,7 @@ function ModeSelect() {
             <Select
                 labelId="label-select-dark-light-mode"
                 id="select-dark-light-mode"
-                value={mode}
+                value={mode || "system"}
                 label="Mode"
                 onChange={handleChange}
             >

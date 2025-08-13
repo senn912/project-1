@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import ModeSelect from '../ModeSelect';
 
+
 function AppBar() {
     return (
         <Box sx={
@@ -13,6 +14,8 @@ function AppBar() {
             }
         }>
             <ModeSelect />
+            App Bar
+            
         </Box>
     );
 }
