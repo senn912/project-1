@@ -4,7 +4,7 @@ function BoardContent() {
     return (
         <Box sx={
             {
-                backgroundColor: 'primary.main',
+                backgroundColor: 'primary.boardContent',
                 width: '100%',
                 height: (theme) => `calc(100vh - ${theme.manifox.appBarHeight} - ${theme.manifox.boardBarHeight})`,
                 display: 'flex',

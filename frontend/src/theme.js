@@ -11,14 +11,14 @@ const theme = extendTheme({
     colorSchemes: {
         light: {
             palette: {
-                primary: { main: '#c4cebbc4', modeselect: '#139b1aff', boardBar: '#0644097a' },
-                secondary: { main: '#558b2f' },
+                primary: { main: '#030703ff', modeselect: '#119680ff', boardBar: '#0644097a',boardContent: '#cddaceff'  },
+                secondary: { main: '#4b7c28ff' },
             },
 
         },
         dark: {
             palette: {
-                primary: { main: '#4d524bff', modeselect: '#274932ff', boardBar: '#a38a1a7a' },
+                primary: { main: '#ffffffff', modeselect: '#119680ff', boardBar: '#0644097a',boardContent: '#242c28ff' },
                 secondary: teal,
             },
 
