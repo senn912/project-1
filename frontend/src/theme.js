@@ -5,20 +5,21 @@ import { experimental_extendTheme as extendTheme } from '@mui/material/styles'
 // Create a theme instance.
 const theme = extendTheme({
     manifox: {
-        appBarHeight: '48px',
-        boardBarHeight: '58px'
+        appBarHeight: '60px',
+        boardBarHeight: '58px',
+        sideBarWidth: '250px',
     },
     colorSchemes: {
         light: {
             palette: {
-                primary: { main: '#030703ff', modeselect: '#119680ff', boardBar: '#0644097a',boardContent: '#cddaceff'  },
-                secondary: { main: '#4b7c28ff' },
+                primary: { main: '#030707ff', modeselect: '#85C1A9', boardBar: '#82cf877a',boardContent: '#e3f7ee98' ,sideBar: '#85c1a983' },
+                secondary: { main: '#2C3E50' },
             },
 
         },
         dark: {
             palette: {
-                primary: { main: '#ffffffff', modeselect: '#119680ff', boardBar: '#0644097a',boardContent: '#242c28ff' },
+                primary: { main: '#ffffffff', modeselect: '#09473dff', boardBar: '#1bca237a',boardContent: '#04221d67', sideBar: '#1196802f' },
                 secondary: teal,
             },
 

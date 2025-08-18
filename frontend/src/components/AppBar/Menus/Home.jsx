@@ -16,7 +16,7 @@ import ContentPaste from '@mui/icons-material/ContentPaste';
 import Cloud from '@mui/icons-material/Cloud';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-function Workspaces() {
+function Home() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -26,25 +26,25 @@ function Workspaces() {
     setAnchorEl(null);
   };
   return (
-    <Box>
+    <Box sx={{height:1}}>
      <Button
-        id="basic-button-workspaces"
-        aria-controls={open ? 'basic-menu-workspaces' : undefined}
+        id="basic-button-home"
+        aria-controls={open ? 'basic-menu-home' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         endIcon={<ExpandMoreIcon/>}
       >
-        Work Space
+        Home
       </Button>
       <Menu
-        id="basic-menu-workspaces"
+        id="basic-menu-home"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         slotProps={{
           list: {
-            'aria-labelledby': 'basic-button-workspaces',
+            'aria-labelledby': 'basic-button-home',
           },
         }}
       >
@@ -87,4 +87,4 @@ function Workspaces() {
   )
 }
 
-export default Workspaces
+export default Home
