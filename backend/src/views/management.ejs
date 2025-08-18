@@ -88,6 +88,7 @@
             async function showUsers() {
                 try {
                     const response = await axios.get('/api/v1/users');
+                    console.log ("get /users response: ",response.data)
                     const users = response.data.data;
 
                     const tableBody = document.getElementById("userTableBody");
@@ -124,7 +125,7 @@
                 try {
                     const response = await axios.delete(`/api/v1/users/${userId}`);
                     alert("User deleted successfully");
-                    // showUsers();  Gọi lại để cập nhật danh sách
+                    showUsers();  //Gọi lại để cập nhật danh sách
                 } catch (error) {
                     console.error("Error deleting user:", error);
                     alert("Failed to delete user");

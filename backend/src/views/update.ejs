@@ -79,11 +79,19 @@
                     <input type="password" id="password" name="password"
                         placeholder="Leave blank to keep current password" value="<%=userEdit.password %>" />
                 </div>
-                <div class="input-group">
+                <!-- <div class="input-group">
                     <label>Role:</label>
                     <input type="role" id="role" name="role" placeholder="admin or user"
                         value="<%=userEdit.role %>" />
-                </div>
+                </div> -->
+                <div class="input-group">
+                    <label>Role:</label>
+                     <select type="role"  type="role" id="role" name="role">
+                    <option disabled selected value>  Select  </option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+            </select>
+            </div>
                 <div>
                     <button class="btn btn-confirm" type="submit">Save</button>
                     <button type="button" class="btn btn-back" onclick="window.history.back()">Back</button>

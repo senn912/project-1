@@ -50,8 +50,8 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-router.get('/update/:id', adminMiddleware, getUpdatePage);
-router.post('/update-user', adminMiddleware, postUpdateUser);
+router.get('/update/:id',authMiddleware, adminMiddleware, getUpdatePage);
+router.post('/update-user',  postUpdateUser);
 
 router.get('/delete/:id', adminMiddleware, getDeletePage);
 router.post('/delete-user', adminMiddleware, postDeleteUser);

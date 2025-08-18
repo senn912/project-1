@@ -1,5 +1,6 @@
 const adminMiddleware = (req, res, next) => {
     const user = res.locals.user;
+   
 
     if (!user || user.role !== 'admin') {
         return res.send(`<script>
