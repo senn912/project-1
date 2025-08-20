@@ -7,12 +7,9 @@ import {
   Collapse,
 } from "@mui/material";
 
-import GroupsIcon from '@mui/icons-material/Groups';
-import BarChartIcon from "@mui/icons-material/BarChart";
-import PeopleIcon from "@mui/icons-material/People";
+
 import WorkIcon from "@mui/icons-material/Work";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
@@ -27,7 +24,7 @@ function Employees() {
   };
 
   return (
-    <List sx={{ width: 250, bgcolor: "background.paper" }}>
+    <List sx={{ px:3, width: 260, bgcolor: "theme.palette.primary.sideBar" }}>
       {/* Dashboard */}
       <ListItemButton onClick={handleDashboardClick}>
         <ListItemIcon>

@@ -22,7 +22,7 @@ export default function Salary() {
   };
 
   return (
-    <List sx={{ width: 250, bgcolor: "background.paper" }}>
+    <List sx={{ px:3, width: 260, bgcolor: "theme.palette.primary.sideBar" }}>
       {/* Dashboard */}
       <ListItemButton onClick={handleDashboardClick}>
         <ListItemIcon>

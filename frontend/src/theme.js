@@ -12,7 +12,7 @@ const theme = extendTheme({
     colorSchemes: {
         light: {
             palette: {
-                primary: { main: '#030707ff', modeselect: '#85C1A9', boardBar: '#82cf877a',boardContent: '#e3f7ee98' ,sideBar: '#85c1a983' },
+                primary: { main: '#030707ff', modeselect: '#85C1A9', boardBar: '#82cf877a',boardContent: '#e3f7ee98' ,sideBar: '#85c7ad8e' },
                 secondary: { main: '#2C3E50' },
             },
 

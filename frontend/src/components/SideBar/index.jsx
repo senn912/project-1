@@ -10,16 +10,17 @@ import Attendance from "./Attendance";
  function SideBar() {
     
   return (
-    <Box px={4}
+    <Box px={2}
       sx={{
         width: (theme) => theme.manifox.sideBarWidth,
         boxSizing: "border-box",
         backgroundColor: "primary.sideBar",
         height: (theme) => `calc(100vh - ${theme.manifox.appBarHeight})`,
-        overflowY: "auto", // ✅ cho phép scroll
-        scrollbarWidth: "none", // ✅ ẩn scrollbar Firefox
+        overflowY: "auto",
+        scrollbarWidth: "none", 
+        
         "&::-webkit-scrollbar": {
-          display: "none", // ✅ ẩn scrollbar Chrome/Safari/Edge
+          display: "none", 
         }
       }}
     >

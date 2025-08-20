@@ -7,10 +7,8 @@ import {
   Collapse,
 } from "@mui/material";
 
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import BarChartIcon from "@mui/icons-material/BarChart";
+
 import ReportIcon from '@mui/icons-material/Report';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import TableViewIcon from '@mui/icons-material/TableView';
@@ -25,7 +23,7 @@ export default function Attendance() {
   };
 
   return (
-    <List sx={{ width: 250, bgcolor: "background.paper" }}>
+    <List sx={{ px:3, width: 260, bgcolor: "theme.palette.primary.sideBar", }}>
       {/* Dashboard */}
       <ListItemButton onClick={handleDashboardClick}>
         <ListItemIcon>

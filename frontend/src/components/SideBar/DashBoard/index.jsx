@@ -22,7 +22,7 @@ export default function DashBoard() {
   };
 
   return (
-    <List sx={{ width: 250, bgcolor: "background.paper" }}>
+    <List sx={{ px:3, width: 260, backgroundColor: "theme.palette.primary.sideBar" }}>
       {/* Dashboard */}
       <ListItemButton onClick={handleDashboardClick}>
         <ListItemIcon>

@@ -7,14 +7,11 @@ import {
   Collapse,
 } from "@mui/material";
 
-import DashboardIcon from "@mui/icons-material/Dashboard";
+
 import BarChartIcon from "@mui/icons-material/BarChart";
-import ReportIcon from '@mui/icons-material/Report';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
-import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 
@@ -26,7 +23,7 @@ export default function Department() {
   };
 
   return (
-    <List sx={{ width: 250, bgcolor: "background.paper" }}>
+    <List sx={{ px:3, width: 260, bgcolor: "theme.palette.primary.sideBar" }}>
       {/* Dashboard */}
       <ListItemButton onClick={handleDashboardClick}>
         <ListItemIcon>
