@@ -7,7 +7,7 @@ const theme = extendTheme({
     manifox: {
         appBarHeight: '60px',
         boardBarHeight: '58px',
-        sideBarWidth: '250px',
+        sideBarWidth: '280px',
     },
     colorSchemes: {
         light: {
