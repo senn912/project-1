@@ -275,6 +275,7 @@ const postDeleteUser = async (req, res) => {
 
 }
 
+
 module.exports = {
   getHomePage,
   getLogin,
@@ -291,6 +292,5 @@ module.exports = {
   getDeletePage,
   postDeleteUser,
   checkJWT,
-
 
 }

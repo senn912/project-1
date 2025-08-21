@@ -56,4 +56,5 @@ router.post('/update-user',  postUpdateUser);
 router.get('/delete/:id', adminMiddleware, getDeletePage);
 router.post('/delete-user', adminMiddleware, postDeleteUser);
 
+
 module.exports = router;

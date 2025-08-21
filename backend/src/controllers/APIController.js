@@ -18,7 +18,8 @@ const getAllUsers = async (req, res) => {
 
 const createNewUser = async (req, res) => {
     const { email, fullName, nickName, password } = req.body || {};
-
+    
+    console.log("Create New user: ",req.body)
     if (!email || !fullName || !nickName || !password) {
         return res.status(400).json({
             message: 'missing',
@@ -55,7 +56,7 @@ const createNewUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const { email, fullName, password, role } = req.body || {};
     const id = req.params.id
-
+    
     if (!email || !fullName || !password) {
         return res.status(400).json({
             message: 'missing infor',
@@ -71,6 +72,7 @@ const updateUser = async (req, res) => {
 
 
     await putupdateUser(id, email, fullName, password, role);
+    console.log("Update User : ", req.body)
     res.status(200).json({
         message: 'Updated',
     });
@@ -159,6 +161,7 @@ module.exports = {
     deleteUser,
     updateUser,
     loginUser,
+    
 
 
 }

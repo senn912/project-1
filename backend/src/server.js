@@ -29,8 +29,7 @@ app.use(cookieParser());
 configViewEngine(app);
 
 
-const { initMiddleware } = require('./middleware/session');
-initMiddleware(app);
+
 
 const { authMiddleware } = require('./middleware/authMiddleware');
 // app.use( authMiddleware);      

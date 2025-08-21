@@ -35,14 +35,14 @@ const postInsertUser = async (email, fullName, nickName, password) => {
 }
 
 const putupdateUser = async (id, email, fullName, password, role) => {
-    // Lấy thông tin cũ của user để giữ nguyên nếu không sửa
+    
     const [rows] = await connection.query(
         `SELECT * FROM Users WHERE id = ?`, [id]
     );
     const user = rows[0];
     if (!user) throw new Error('User not found');
 
-    // Giữ nguyên giá trị nếu không nhập mới
+    
     email = email || user.email;
     fullName = fullName || user.fullName;
     role = role || user.role;
