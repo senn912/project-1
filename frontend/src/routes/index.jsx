@@ -18,14 +18,16 @@ import ListContact from "~/pages/Salary/List Contract";
 import AddContact from "~/pages/Salary/Add";
 import Renew from "~/pages/Salary/Renew";
 import LeaveReq from "~/pages/Attendance/Leave Request";
-
+import Login from "~/pages/Account/LogIn"
+import Layout_Login from "~/components/Layout/Layout_Login"
+import Create from "~/pages/Account/Create"
 const routes = [
   {
     path: "/",
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      
+      // { index: true, element: <login/>},
       {
         path: "dashboard",
         children: [
@@ -35,6 +37,7 @@ const routes = [
           { path: "report", element: <Report /> },
         ],
         },
+        
         {
         path: "employees",
         children: [
@@ -72,11 +75,26 @@ const routes = [
           { path: "addcontact", element: <AddContact /> },
           { path: "renew", element: <Renew /> },
         ],
-      }
+      },
 
       
     ],
   },
+  {
+    path: "/login",
+    element: <Layout_Login />,
+    children: [
+      { index: true, element: <Login /> },
+    ],
+  },
+  {
+    path: "/create",
+    element: <Layout_Login />,
+    children: [
+      { index: true, element: <Create /> },
+    ],
+  },
+  
 ];
 
 export default routes;

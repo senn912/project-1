@@ -12,10 +12,13 @@ import News from './Menus/News';
 import Upload from './Menus/Upload';
 import Login from './Login';
 import Create from './Create';
+import { useAuth } from "../../context/AuthContext";
+import UserMenu from "../User/UserMenu"
 
 
 
 function AppBar() {
+    const { user } = useAuth();
     return (
         <Box px={4} sx={
             {
@@ -44,13 +47,17 @@ function AppBar() {
                 </Box>
             </Box>
             <Box sx={{display:'flex',  alignItems:'center',gap: 1.8}}>
-                <Create/>
-                <Login/>
-                <ModeSelect />
+
+        <UserMenu />   {/* <-- Gọi component riêng */}
+                <ModeSelect /> {/* luôn hiển thị */}
+                {!useAuth()?.user && (
+                    <>
+                        <Create/>
+                        <Login/>
+                    </>
+                )}
                 
             </Box>
-            
-           
             
         </Box>
     );
