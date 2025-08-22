@@ -6,16 +6,16 @@ import {
   ListItemText,
   Collapse,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
-
-import BarChartIcon from "@mui/icons-material/BarChart";
+import ReportIcon from '@mui/icons-material/Report';
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import CorporateFareIcon from '@mui/icons-material/CorporateFare';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import Diversity1Icon from '@mui/icons-material/Diversity1';
+import TableViewIcon from '@mui/icons-material/TableView';
+import BrushIcon from '@mui/icons-material/Brush';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
-export default function Department() {
+export default function Attendance() {
   const [openDashboard, setOpenDashboard] = useState(false);
 
   const handleDashboardClick = () => {
@@ -23,39 +23,40 @@ export default function Department() {
   };
 
   return (
-    <List sx={{ px:3, width: 260, bgcolor: "theme.palette.primary.sideBar" }}>
+    <List sx={{ px:3, width: 260, bgcolor: "theme.palette.primary.sideBar", }}>
       {/* Dashboard */}
       <ListItemButton onClick={handleDashboardClick}>
         <ListItemIcon>
-          <CorporateFareIcon />
+          <TableViewIcon/>
         </ListItemIcon>
-        <ListItemText primary="Department" />
+        <ListItemText primary="Attendance" />
         {openDashboard ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
       <Collapse in={openDashboard} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/attendance/report" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <BarChartIcon />
+              <ReportIcon />
             </ListItemIcon>
-            <ListItemText primary="Department List " />
+            <ListItemText primary="Attendance Report " />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/attendance/leavereq" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <GroupAddIcon />
+              <BrushIcon />
             </ListItemIcon>
-            <ListItemText primary="Add Department" />
+            <ListItemText primary="Leave Requests" />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/attendance/overtime" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <Diversity1Icon />
+              <AccessTimeIcon />
             </ListItemIcon>
-            <ListItemText primary="Manage Teams" />
+            <ListItemText primary="Overtime Tracking" />
           </ListItemButton>
+
 
         </List>
       </Collapse>

@@ -6,17 +6,16 @@ import {
   ListItemText,
   Collapse,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
-
-import WorkIcon from "@mui/icons-material/Work";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import BarChartIcon from "@mui/icons-material/BarChart";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import RecentActorsIcon from '@mui/icons-material/RecentActors';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import Diversity1Icon from '@mui/icons-material/Diversity1';
 
-function Employees() {
+export default function Department() {
   const [openDashboard, setOpenDashboard] = useState(false);
 
   const handleDashboardClick = () => {
@@ -28,47 +27,38 @@ function Employees() {
       {/* Dashboard */}
       <ListItemButton onClick={handleDashboardClick}>
         <ListItemIcon>
-          <PermIdentityIcon />
+          <CorporateFareIcon />
         </ListItemIcon>
-        <ListItemText primary="Employees" />
+        <ListItemText primary="Department" />
         {openDashboard ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
       <Collapse in={openDashboard} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          
-          <ListItemButton sx={{ pl: 4 }}>
+
+          <ListItemButton component={Link} to="/department/list" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <RecentActorsIcon />
+              <BarChartIcon />
             </ListItemIcon>
-            <ListItemText primary="Employees List" />
+            <ListItemText primary="Department List " />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/department/add" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <PersonAddAltIcon />
+              <GroupAddIcon />
             </ListItemIcon>
-            <ListItemText primary="Add Employees" />
+            <ListItemText primary="Add Department" />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/department/manage" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <WorkIcon />
+              <Diversity1Icon />
             </ListItemIcon>
-            <ListItemText primary="Edit / Update Employee" />
+            <ListItemText primary="Manage Teams" />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <AccessTimeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Roles & Permissions" />
-          </ListItemButton>
-          
         </List>
       </Collapse>
     </List>
   );
 }
-
-export default Employees

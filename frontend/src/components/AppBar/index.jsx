@@ -1,5 +1,8 @@
 import Box from '@mui/material/Box';
 // import ModeSelect from '../ModeSelect';
+import { Link } from "react-router-dom";
+
+
 import ModeSelect from '~/components/ModeSelect';
 import AppsIcon from '@mui/icons-material/Apps';
 import logoSmall from '~/assets/favicon.ico'
@@ -7,8 +10,8 @@ import { Typography } from '@mui/material';
 import Home from './Menus/Home';
 import News from './Menus/News';
 import Upload from './Menus/Upload';
-import Login from '../Login';
-import Create from '../Create';
+import Login from './Login';
+import Create from './Create';
 
 
 
@@ -26,8 +29,12 @@ function AppBar() {
         }>
             <Box sx={{display:'flex', alignItems:'center', gap : 3 }}>
                 {/* <AppsIcon sx={{color:'primary.appBar'}}/>  */}
-                <Box sx={{display:'flex', alignItems:'center', gap : 1 }}>
-                    <img src={logoSmall} width="35" height="35" alt="Logo"/>
+                <Box component={Link} to="/" sx={{display:'flex', alignItems:'center', gap : 1, textDecoration: "none", 
+                color: "inherit","&:hover": {
+                textDecoration: "none", 
+                }, 
+                }}>
+                    <img src={logoSmall} width="35" height="35" alt="Logo" />
                     <Typography variant='span' sx={{fontSize:'1.5rem',fontWeight:'bold', color:'primary.appBar'}}> Manifox </Typography>
                 </Box >
                 <Box sx={{display:'flex', alignItems:'center', gap : 3, ml: 5 }}>

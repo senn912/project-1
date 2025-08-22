@@ -7,6 +7,7 @@ import {
   Collapse,
 } from "@mui/material";
 
+import { Link } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ReportIcon from '@mui/icons-material/Report';
@@ -14,7 +15,7 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
-export default function DashBoard() {
+export default function Salary() {
   const [openDashboard, setOpenDashboard] = useState(false);
 
   const handleDashboardClick = () => {
@@ -22,39 +23,47 @@ export default function DashBoard() {
   };
 
   return (
-    <List sx={{ px:3, width: 260, backgroundColor: "theme.palette.primary.sideBar" }}>
+    <List sx={{ px:3, width: 260, bgcolor: "theme.palette.primary.sideBar" }}>
       {/* Dashboard */}
       <ListItemButton onClick={handleDashboardClick}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        <ListItemText primary="Salary" />
         {openDashboard ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
       <Collapse in={openDashboard} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/salary/payroll" sx={{ pl: 4 }}>
             <ListItemIcon>
               <BarChartIcon />
             </ListItemIcon>
-            <ListItemText primary="Overview " />
+            <ListItemText primary="Payroll Management " />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/salary/listcontact" sx={{ pl: 4 }}>
             <ListItemIcon>
               <AnalyticsIcon />
             </ListItemIcon>
-            <ListItemText primary="Analytics" />
+            <ListItemText primary="Contract List" />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/salary/addcontact" sx={{ pl: 4 }}>
             <ListItemIcon>
               <ReportIcon />
             </ListItemIcon>
-            <ListItemText primary="Report" />
+            <ListItemText primary="Add Contract" />
           </ListItemButton>
+
+          <ListItemButton component={Link} to="/salary/renew" sx={{ pl: 4 }}>
+            <ListItemIcon>
+              <ReportIcon />
+            </ListItemIcon>
+            <ListItemText primary="Renew / Terminate Contracts" />
+          </ListItemButton>
+
         </List>
       </Collapse>
     </List>

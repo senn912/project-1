@@ -7,14 +7,17 @@ import {
   Collapse,
 } from "@mui/material";
 
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import ReportIcon from '@mui/icons-material/Report';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
+
+import WorkIcon from "@mui/icons-material/Work";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import RecentActorsIcon from '@mui/icons-material/RecentActors';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import { Link } from "react-router-dom";
 
-export default function Salary() {
+function Employees() {
   const [openDashboard, setOpenDashboard] = useState(false);
 
   const handleDashboardClick = () => {
@@ -26,45 +29,47 @@ export default function Salary() {
       {/* Dashboard */}
       <ListItemButton onClick={handleDashboardClick}>
         <ListItemIcon>
-          <DashboardIcon />
+          <PermIdentityIcon />
         </ListItemIcon>
-        <ListItemText primary="Salary" />
+        <ListItemText primary="Employees" />
         {openDashboard ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
       <Collapse in={openDashboard} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-
-          <ListItemButton sx={{ pl: 4 }}>
+          
+          <ListItemButton component={Link} to="/employees/list" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <BarChartIcon />
+              <RecentActorsIcon />
             </ListItemIcon>
-            <ListItemText primary="Payroll Management " />
+            <ListItemText primary="Employees List" />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/employees/add" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <AnalyticsIcon />
+              <PersonAddAltIcon />
             </ListItemIcon>
-            <ListItemText primary="Contract List" />
+            <ListItemText primary="Add Employees" />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/employees/edit" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <ReportIcon />
+              <WorkIcon />
             </ListItemIcon>
-            <ListItemText primary="Add Contract" />
+            <ListItemText primary="Edit / Update Employee" />
           </ListItemButton>
 
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton component={Link} to="/employees/role" sx={{ pl: 4 }}>
             <ListItemIcon>
-              <ReportIcon />
+              <AccessTimeIcon />
             </ListItemIcon>
-            <ListItemText primary="Renew / Terminate Contracts" />
+            <ListItemText primary="Roles & Permissions" />
           </ListItemButton>
-
+          
         </List>
       </Collapse>
     </List>
   );
 }
+
+export default Employees
