@@ -12,6 +12,8 @@ const hostname = process.env.HOSTNAME || 'localhost';
 const webRoutes = require('./routes/web');
 const connection = require('./config/database');
 const initAPIRoute = require('./routes/api');
+// import cors from "cors";
+const cors =  require('cors')
 
 const multer = require('multer');
 // //config req.body
@@ -29,7 +31,13 @@ app.use(cookieParser());
 configViewEngine(app);
 
 
+app.use(cors({
+  origin: "http://localhost:5173",  
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
+app.use(express.json());
 
 const { authMiddleware } = require('./middleware/authMiddleware');
 // app.use( authMiddleware);      
