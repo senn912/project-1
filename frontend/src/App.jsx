@@ -1,9 +1,11 @@
-import { useRoutes } from "react-router-dom";
-import routes from "./routes";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes";
 
-function App() {
-  const element = useRoutes(routes);
-  return element;
+ function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+      </BrowserRouter>
+  );
 }
-
 export default App;

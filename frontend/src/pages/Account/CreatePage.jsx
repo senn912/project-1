@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function CreateAccount() {
+export default function CreatePage() {
     const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",

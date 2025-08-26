@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 
 import ModeSelect from '~/components/ModeSelect';
-import AppsIcon from '@mui/icons-material/Apps';
+
 import logoSmall from '~/assets/favicon.ico'
 import { Typography } from '@mui/material';
 import Home from './Menus/Home';
 import News from './Menus/News';
 import Upload from './Menus/Upload';
-import Login from './Login';
-import Create from './Create';
+import LoginButton from './Login/LoginButton';
+import CreateButton from './Create/CreateButton';
 import { useAuth } from "../../context/AuthContext";
 import UserMenu from "../User/UserMenu"
 
@@ -48,12 +48,12 @@ function AppBar() {
             </Box>
             <Box sx={{display:'flex',  alignItems:'center',gap: 1.8}}>
 
-        <UserMenu />   {/* <-- Gọi component riêng */}
-                <ModeSelect /> {/* luôn hiển thị */}
+        <UserMenu />   
+                <ModeSelect /> 
                 {!useAuth()?.user && (
                     <>
-                        <Create/>
-                        <Login/>
+                        <CreateButton/>
+                        <LoginButton/>
                     </>
                 )}
                 

@@ -5,7 +5,7 @@ import { Box, Button, Container, TextField, Typography, Paper, } from "@mui/mate
 import axios from "axios"; 
 
 
-export default function Login() {
+export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [nickName, setNickName] = useState(""); 

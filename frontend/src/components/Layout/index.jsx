@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Box, Toolbar } from "@mui/material";
-import AppBar from "../AppBar";
+import AppBar from "../AppBar/AppBar.jsx";
 import SideBar from "../SideBar";
 import Container from '@mui/material/Container';
 

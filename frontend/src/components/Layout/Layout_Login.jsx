@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Box, Container } from "@mui/material";
-import AppBar from "../AppBar";
+import AppBar from "../AppBar/AppBar.jsx";
 
 function Layout_Login () {
   return (
