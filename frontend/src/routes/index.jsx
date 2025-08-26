@@ -1,6 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "../components/Layout";
-import Home from "../pages/Home";
+
+import Home from "../pages/Home/Home";
+import News from "~/pages/News/News";
+import Upload from "~/pages/Upload/Upload";
 
 import Analytics from "../pages/Dashboard/Analytics";
 import Overview from "../pages/DashBoard/Overtime";
@@ -16,7 +19,6 @@ import List from "~/pages/Departments/List";
 import Add from "~/pages/Departments/Add";
 import ManageTeams from "~/pages/Departments/Manage Teams";
 
-
 import Payroll from "~/pages/Salary/Payroll";
 import ListContact from "~/pages/Salary/List Contract";
 import AddContact from "~/pages/Salary/Add";
@@ -28,12 +30,13 @@ import CreatePage from "~/pages/Account/CreatePage";
 
 import Layout_Login from "~/components/Layout/Layout_Login";
 
-
- function AppRoutes() {
+function AppRoutes() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="news" element={<News />} />
+        <Route path="upload" element={<Upload />} />
         <Route path="dashboard">
           <Route path="analytics" element={<Analytics />} />
           <Route path="overview" element={<Overview />} />
@@ -69,6 +72,5 @@ import Layout_Login from "~/components/Layout/Layout_Login";
     </Routes>
   );
 }
-
 
 export default AppRoutes;

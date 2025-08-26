@@ -1,16 +1,23 @@
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react"; 
-import { Box, Button, Container, TextField, Typography, Paper, } from "@mui/material"; 
-import axios from "axios"; 
-
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  TextField,
+  Typography,
+  Paper,
+} from "@mui/material";
+import axios from "axios";
+import { loginAPI } from "~/API/LoginAPI";
 
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [nickName, setNickName] = useState(""); 
-  const [password, setPassword] = useState(""); 
-  const [loading, setLoading] = useState(false); 
+  const [nickName, setNickName] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -19,15 +26,11 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      const res = await axios.post("http://localhost:8088/api/v1/login", {
-        nickName,
-        password,
-      }, { withCredentials: true });
-
+      const res = await loginAPI(nickName, password);
       console.log("Login success:", res.data);
 
-    const token = res.data.token;
-    const fullName = res.data.user.fullName;
+      const token = res.data.token;
+      const fullName = res.data.user.fullName;
       login({ fullName }, token);
 
       navigate("/");

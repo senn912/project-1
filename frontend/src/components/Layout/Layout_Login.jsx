@@ -9,12 +9,9 @@ function Layout_Login () {
       maxWidth={false}
       sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
     >
-      {/* AppBar cho login */}
       <Box sx={{ height: (theme) => theme.manifox.appBarHeight }}>
         <AppBar />
       </Box>
-
-      {/* Nội dung login */}
       <Box sx={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
         <Outlet />
       </Box>

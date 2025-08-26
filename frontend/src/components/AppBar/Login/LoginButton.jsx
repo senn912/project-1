@@ -7,8 +7,8 @@ function LoginButton() {
   return (
     <Box sx={{ height: 1, display: 'flex', alignItems: 'center' }}>
       <Button  component={Link} to="/login"
-        variant="contained"   // nút màu nền
-        color="secondary"       // màu chính
+        variant="contained"   
+        color="secondary"       
         id="login-button"
       >
         Login

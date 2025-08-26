@@ -17,7 +17,7 @@ export default function UserMenu() {
     handleClose();
   };
 
-  if (!user) return null; // Nếu chưa login thì không hiển thị
+  if (!user) return null; 
 
   return (
     <>

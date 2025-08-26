@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Box, Toolbar } from "@mui/material";
 import AppBar from "../AppBar/AppBar.jsx";
-import SideBar from "../SideBar";
+import SideBar from "../SideBar/SideBar.jsx";
 import Container from '@mui/material/Container';
 
 function Layout() {
