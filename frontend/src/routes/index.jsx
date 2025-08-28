@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout/MainLayout";
 
 import Home from "../pages/Home/Home";
 import News from "~/pages/News/News";
@@ -28,7 +28,7 @@ import LeaveReq from "~/pages/Attendance/Leave Request";
 import LoginPage from "~/pages/Account/LoginPage";
 import CreatePage from "~/pages/Account/CreatePage";
 
-import Layout_Login from "~/components/Layout/Layout_Login";
+import Layout_Login from "~/components/Layout/AuthLayout";
 
 function AppRoutes() {
   return (

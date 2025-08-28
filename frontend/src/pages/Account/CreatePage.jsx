@@ -8,11 +8,12 @@ import {
   Paper,
   Alert,
 } from "@mui/material";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
+import { createAPI } from "~/API/createAPI";
 
 export default function CreatePage() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     nickName: "",
@@ -38,23 +39,19 @@ export default function CreatePage() {
     setMessage(null);
 
     try {
-      const res = await axios.post(
-        "http://localhost:8088/api/v1/users",
-        formData
-      );
-
-      setMessage("Created 🎉");
-      console.log("API Response:", res.data);
-
-     setTimeout(() => {
-        navigate("/login");
-      }, 3000);
-
-    } catch (err) {
-      if (err.response) {
-        setError(err.response.data.message || "Create Error");
+      const result = await createAPI(formData);
+      if (result.success) {
+        setMessage("Created ");
+        console.log("API Response:", result.data);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      }
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data.message);
       } else {
-        setError("Server Error");
+        setError(error.message);
       }
     } finally {
       setLoading(false);
@@ -95,10 +92,9 @@ export default function CreatePage() {
           <TextField
             label="Email"
             name="email"
-            type="email"
             value={formData.email}
             onChange={handleChange}
-            required
+            // required
             fullWidth
           />
           <TextField
@@ -106,7 +102,7 @@ export default function CreatePage() {
             name="nickName"
             value={formData.nickName}
             onChange={handleChange}
-            required
+            // required
             fullWidth
           />
           <TextField
@@ -114,7 +110,7 @@ export default function CreatePage() {
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            required
+            // required
             fullWidth
           />
           <TextField
@@ -123,7 +119,7 @@ export default function CreatePage() {
             type="password"
             value={formData.password}
             onChange={handleChange}
-            required
+            // required
             fullWidth
           />
           <Button
@@ -132,53 +128,54 @@ export default function CreatePage() {
             size="large"
             disabled={loading}
             sx={{
-                mt: 2,
-                backgroundColor: "primary.modeselect",   // màu chính
-                "&:hover": {
-                backgroundColor: "primary.dark", // hover thì tối hơn chút
-                transform: "scale(1.05)",        // phóng to nhẹ
-                },
-                transition: "all 0.2s ease-in-out", // hiệu ứng mượt
+              mt: 2,
+              backgroundColor: "primary.modeselect",
+              "&:hover": {
+                backgroundColor: "primary.dark",
+                transform: "scale(1.05)",
+              },
+              transition: "all 0.2s ease-in-out",
             }}
           >
             {loading ? "Creating..." : "Submit"}
           </Button>
-          <Box sx={{justifyContent: "center", display: "flex", gap: 2, mt: 2 }}>
-          <Button
-                variant="contained"
-                size="large"
-                disabled={loading}
-                onClick={() => navigate("/login")}
-                sx={{
+          <Box
+            sx={{ justifyContent: "center", display: "flex", gap: 2, mt: 2 }}
+          >
+            <Button
+              variant="contained"
+              size="large"
+              disabled={loading}
+              onClick={() => navigate("/login")}
+              sx={{
                 backgroundColor: "primary.modeselect",
                 "&:hover": {
-                    backgroundColor: "primary.dark",
-                    transform: "scale(1.05)",
+                  backgroundColor: "primary.dark",
+                  transform: "scale(1.05)",
                 },
                 transition: "all 0.2s ease-in-out",
-                }}
-          >
-            Log In
-          </Button>
-          <Button
-                variant="contained"
-                size="large"
-                disabled={loading}
-                onClick={() => navigate("/")}
-                sx={{
+              }}
+            >
+              Log In
+            </Button>
+            <Button
+              variant="contained"
+              size="large"
+              disabled={loading}
+              onClick={() => navigate("/")}
+              sx={{
                 backgroundColor: "primary.modeselect",
                 "&:hover": {
-                    backgroundColor: "primary.dark",
-                    transform: "scale(1.05)",
+                  backgroundColor: "primary.dark",
+                  transform: "scale(1.05)",
                 },
                 transition: "all 0.2s ease-in-out",
-                }}
-          >
-            Home
-          </Button>
+              }}
+            >
+              Home
+            </Button>
           </Box>
         </Box>
-    
       </Paper>
     </Container>
   );

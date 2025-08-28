@@ -28,7 +28,6 @@ function AppBar() {
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-        {/* <AppsIcon sx={{color:'primary.appBar'}}/>  */}
         <Box
           component={Link}
           to="/"
@@ -71,14 +70,15 @@ function AppBar() {
         </Box>
       </Box>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.8 }}>
-        <UserMenu />
-        <ModeSelect />
-        {!useAuth()?.user && (
+        {user ? (
+          <UserMenu />
+        ) : (
           <>
             <CreateButton />
             <LoginButton />
           </>
         )}
+        <ModeSelect />
       </Box>
     </Box>
   );

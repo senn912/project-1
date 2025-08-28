@@ -1,26 +1,26 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from '~/App.jsx'
-import CssBaseline from '@mui/material/CssBaseline';
-import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "~/App.jsx";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/styles";
 
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from "./context/AuthContext";
 
 import { BrowserRouter } from "react-router-dom";
 
-import theme from './theme';
+import theme from "./theme";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <CssVarsProvider theme={theme}>
       <CssBaseline />
-      <AuthProvider>
       <BrowserRouter>
-      <App/>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </BrowserRouter>
-      </AuthProvider>
     </CssVarsProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);
 //

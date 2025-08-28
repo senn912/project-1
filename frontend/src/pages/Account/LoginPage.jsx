@@ -9,38 +9,28 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import axios from "axios";
-import { loginAPI } from "~/API/LoginAPI";
+
+
+
 
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [nickName, setNickName] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      const res = await loginAPI(nickName, password);
-      console.log("Login success:", res.data);
-
-      const token = res.data.token;
-      const fullName = res.data.user.fullName;
-      login({ fullName }, token);
-
+    const result = await login(nickName, password);
+    if (result.success) {
       navigate("/");
-    } catch (err) {
-      if (err.response) setError(err.response.data.message || "Login failed");
-      else setError("Server error");
-    } finally {
-      setLoading(false);
+    } else {
+      setError(result.message);
     }
   };
+
 
   return (
     <Container

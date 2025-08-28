@@ -17,13 +17,18 @@ export default function UserMenu() {
     handleClose();
   };
 
-  if (!user) return null; 
+  if (!user) return null;
 
   return (
     <>
       <Button
         onClick={handleClick}
-        sx={{ textTransform: "none", display: "flex", alignItems: "center", gap: 0.5 }}
+        sx={{
+          textTransform: "none",
+          display: "flex",
+          alignItems: "center",
+          gap: 0.5,
+        }}
         endIcon={open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       >
         Hello {user.fullName}
