@@ -114,13 +114,12 @@
                     nickName,
                     password
                 }, {
-                    withCredentials: true // quan trọng để gửi cookie/session nếu có
+                    withCredentials: true 
                 });
 
                 const data = response.data;
 
                 if (data.message === "done" && data.token) {
-                    localStorage.setItem("token", data.token);
                     alert("Login success");
                     window.location.href = "/";
                 } else {

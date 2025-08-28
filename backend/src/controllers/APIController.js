@@ -22,7 +22,7 @@ const createNewUser = async (req, res) => {
     console.log("Create New user: ",req.body)
     if (!email || !fullName || !nickName || !password) {
         return res.status(400).json({
-            message: 'missing',
+            message: 'You need to fill in the form',
         })
     }
 
@@ -36,7 +36,7 @@ const createNewUser = async (req, res) => {
     let [rowsNickname] = await postCheckNickname(nickName);
     if (rowsNickname.length > 0) {
         return res.status(409).json({
-            message: 'nickname has existed'
+            message: 'Nickname has existed'
         })
     }
     let [rowsEmail] = await postCheckEmail(email);
@@ -46,8 +46,8 @@ const createNewUser = async (req, res) => {
         })
     }
     await postInsertUser(email, fullName, nickName, password);
-    return res.status(201).json({
-        message: 'ok',
+    return res.status(201).json({ success: true,
+        message: 'Created',
     })
 
 }
@@ -104,7 +104,7 @@ const loginUser = async (req, res) => {
 
     if (!nickName || !password) {
         return res.status(400).json({
-            message: 'nickname and password are required'
+            message: 'Nickname and Password are required'
         })
     }
 
@@ -127,14 +127,15 @@ const loginUser = async (req, res) => {
             );
 
             res.cookie('token', token, {
-                httpOnly: true,         // Bảo vệ khỏi XSS
-                secure: false,          // true nếu dùng HTTPS
-                sameSite: 'Strict',     // Chống CSRF
-                maxAge: 2 * 60 * 60 * 1000 // 2 giờ
+                httpOnly: true,         
+                secure: false,          
+                // sameSite: 'Strict',     
+                maxAge: 2 * 60 * 60 * 1000,
+                path: '/',  
             });
 
             return res.status(200).json({
-                message: 'done',
+                message: 'Login success',
                 token: token,
                 user: {
                     id: user.id,
@@ -148,12 +149,39 @@ const loginUser = async (req, res) => {
 
 
     return res.status(401).json({
-        message: 'nickname or password are wrong'
+        message: 'Nickname or Password are wrong'
     })
 
 }
 
+const logoutUser = (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: false,     // để true nếu deploy HTTPS
+      sameSite: "Strict",
+      path: "/",         // ✅ thêm path
+    });
 
+    return res.status(200).json({
+      message: "Logout successful",
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
+const getUserAPI = (req,res) =>{
+    try {
+    res.status(200).json({ user: req.user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
 
 module.exports = {
     getAllUsers,
@@ -161,6 +189,8 @@ module.exports = {
     deleteUser,
     updateUser,
     loginUser,
+    logoutUser,
+    getUserAPI,
     
 
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { getAllUsers, createNewUser, updateUser, deleteUser, loginUser,getStatus } = require('../controllers/APIController.js');
-const authMiddleware = require('../middleware/authMiddleware.js');
+const { getAllUsers, createNewUser, updateUser, deleteUser, loginUser,logoutUser, getUserAPI } = require('../controllers/APIController.js');
+const { authTokenAPI } = require('../middleware/authTokenAPI.js')
 
 //khai bao route
 const initAPIRoute = (app) => {
@@ -10,6 +10,8 @@ const initAPIRoute = (app) => {
     router.put('/users/:id', updateUser);
     router.delete('/users/:id', deleteUser);
     router.post('/login', loginUser);
+    router.post('/logout',logoutUser);
+    router.get('/me',authTokenAPI,getUserAPI);
     
     
     app.use('/api/v1/', router)
