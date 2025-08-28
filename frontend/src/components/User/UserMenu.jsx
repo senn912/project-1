@@ -1,4 +1,3 @@
-// src/components/UserMenu.jsx
 import { useState } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";

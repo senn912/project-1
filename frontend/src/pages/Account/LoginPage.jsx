@@ -10,9 +10,6 @@ import {
   Paper,
 } from "@mui/material";
 
-
-
-
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();

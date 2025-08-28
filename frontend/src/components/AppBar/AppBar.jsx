@@ -61,7 +61,6 @@ function AppBar() {
               key={index}
               component={Link}
               to={menu.path}
-              startIcon={menu.icon}
               sx={{ color: "primary.appBar" }}
             >
               {menu.label}
