@@ -1,3 +1,3 @@
 export default function ReportAttendance() {
-  return <h1>ReportAttendance Page</h1>;
+  return <h1>Report Attendance Page</h1>;
 }

@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 import AppBar from "../AppBar/AppBar.jsx";
 
-function Layout_Login () {
+function AuthLayout() {
   return (
     <Container
       disableGutters
@@ -12,11 +12,18 @@ function Layout_Login () {
       <Box sx={{ height: (theme) => theme.manifox.appBarHeight }}>
         <AppBar />
       </Box>
-      <Box sx={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Outlet />
       </Box>
     </Container>
   );
 }
 
-export default Layout_Login ;
+export default AuthLayout;

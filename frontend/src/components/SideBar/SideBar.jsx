@@ -32,7 +32,7 @@ import WorkIcon from "@mui/icons-material/Work";
 
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import DescriptionIcon from "@mui/icons-material/Description";
-import AssignmentIcon from "@mui/icons-material/Assignment";
+
 
 const sidebarMenus = [
   {
@@ -50,7 +50,7 @@ const sidebarMenus = [
     children: [
       { label: "Employees List", path: "/employees/list", icon: <RecentActorsIcon /> },
       { label: "Add Employees", path: "/employees/add", icon: <PersonAddAltIcon /> },
-      { label: "Edit / Update Employee", path: "/employees/edit", icon: <WorkIcon /> },
+      { label: "Edit Employee", path: "/employees/edit", icon: <WorkIcon /> },
       { label: "Roles & Permissions", path: "/employees/role", icon: <AccessTimeIcon /> },
     ],
   },
@@ -68,7 +68,7 @@ const sidebarMenus = [
     icon: <TableViewIcon />,
     children: [
       { label: "Attendance Report", path: "/attendance/report", icon: <ReportIcon /> },
-      { label: "Leave Requests", path: "/attendance/leavereq", icon: <BrushIcon /> },
+      { label: "Leave Requests", path: "/attendance/leaverequest", icon: <BrushIcon /> },
       { label: "Overtime Tracking", path: "/attendance/overtime", icon: <AccessTimeIcon /> },
     ],
   },
@@ -78,8 +78,6 @@ const sidebarMenus = [
     children: [
       { label: "Payroll Management", path: "/salary/payroll", icon: <BarChartIcon /> },
       { label: "Contract List", path: "/salary/listcontact", icon: <DescriptionIcon /> },
-      { label: "Add Contract", path: "/salary/addcontact", icon: <AssignmentIcon /> },
-      { label: "Renew / Terminate Contracts", path: "/salary/renew", icon: <ReportIcon /> },
     ],
   },
 ];

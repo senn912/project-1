@@ -10,8 +10,8 @@ import {
   Paper,
 } from "@mui/material";
 
-export default function LoginPage() {
-  const { login } = useAuth();
+export default function LoginUserPage() {
+  const { loginUser } = useAuth();
   const navigate = useNavigate();
   const [nickName, setNickName] = useState("");
   const [password, setPassword] = useState("");
@@ -20,14 +20,13 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await login(nickName, password);
+    const result = await loginUser(nickName, password);
     if (result.success) {
       navigate("/");
     } else {
       setError(result.message);
     }
   };
-
 
   return (
     <Container

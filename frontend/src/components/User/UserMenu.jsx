@@ -5,14 +5,14 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useAuth } from "../../context/AuthContext";
 
 export default function UserMenu() {
-  const { user, logout } = useAuth();
+  const { user, logoutUser } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
   const handleLogout = () => {
-    logout();
+    logoutUser();
     handleClose();
   };
 

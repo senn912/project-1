@@ -7,11 +7,11 @@ import LogoSmall from "~/assets/favicon.ico";
 
 import Button from "@mui/material/Button";
 
-import LoginButton from "./Login/LoginButton";
-import CreateButton from "./Create/CreateButton";
 import { useAuth } from "../../context/AuthContext";
-import { menus } from "./Menus/Menus";
+import Menus from "./Menus/Menus";
 import UserMenu from "../User/UserMenu";
+
+import AccountButton from "./AccountButton/AccountButton";
 
 function AppBar() {
   const { user } = useAuth();
@@ -56,16 +56,7 @@ function AppBar() {
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 3, ml: 5 }}>
-          {menus.map((menu, index) => (
-            <Button
-              key={index}
-              component={Link}
-              to={menu.path}
-              sx={{ color: "primary.appBar" }}
-            >
-              {menu.label}
-            </Button>
-          ))}
+          <Menus />
         </Box>
       </Box>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.8 }}>
@@ -73,8 +64,7 @@ function AppBar() {
           <UserMenu />
         ) : (
           <>
-            <CreateButton />
-            <LoginButton />
+            <AccountButton />
           </>
         )}
         <ModeSelect />

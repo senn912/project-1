@@ -1,22 +1,25 @@
 import { Outlet } from "react-router-dom";
-import { Box, Toolbar } from "@mui/material";
+import { Box } from "@mui/material";
 import AppBar from "../AppBar/AppBar.jsx";
 import SideBar from "../SideBar/SideBar.jsx";
-import Container from '@mui/material/Container';
+import Container from "@mui/material/Container";
 
-function Layout() {
+function MainLayout() {
   return (
-     <Container disableGutters maxWidth={false} sx={{ height: '100vh',display: 'flex', flexDirection: 'column' }}>
-            <Box sx={{ height: (theme) => theme.manifox.appBarHeight }}>
-                <AppBar />
-            </Box> 
-            <Box sx={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-                <SideBar />
-                <Outlet />
-            </Box>
-            
-        </Container>
+    <Container
+      disableGutters
+      maxWidth={false}
+      sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
+    >
+      <Box sx={{ height: (theme) => theme.manifox.appBarHeight }}>
+        <AppBar />
+      </Box>
+      <Box sx={{ display: "flex", flex: 1, overflow: "hidden" }}>
+        <SideBar />
+        <Outlet />
+      </Box>
+    </Container>
   );
 }
 
-export default Layout;
+export default MainLayout;

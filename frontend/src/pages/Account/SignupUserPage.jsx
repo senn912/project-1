@@ -10,9 +10,9 @@ import {
 } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
-import { createAPI } from "~/API/createAPI";
+import { signUp } from "~/api/signUp";
 
-export default function CreatePage() {
+export default function SignUpUserPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -39,7 +39,7 @@ export default function CreatePage() {
     setMessage(null);
 
     try {
-      const result = await createAPI(formData);
+      const result = await signUp(formData);
       if (result.success) {
         setMessage("Created ");
         console.log("API Response:", result.data);

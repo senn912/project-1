@@ -1,73 +1,75 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "../components/Layout/MainLayout";
+import MainLayout from "../components/Layout/MainLayout";
+import AuthLayout from "~/components/Layout/AuthLayout";
 
 import Home from "../pages/Home/Home";
 import News from "~/pages/News/News";
 import Upload from "~/pages/Upload/Upload";
 
-import Analytics from "../pages/Dashboard/Analytics";
-import Overview from "../pages/DashBoard/Overtime";
-import Report from "../pages/Dashboard/Report";
-import OverTime from "../pages/DashBoard/Overtime";
+import AnalyticsDashboard from "../pages/DashBoard/AnalyticsDashboard";
+import OverviewDashboard from "../pages/DashBoard/OverviewDashboard";
+import ReportDashboard from "../pages/DashBoard/ReportDashboard";
 
-import EmployeeList from "~/pages/Employees/Employees List";
-import AddEmployees from "~/pages/Employees/Add Employees";
-import UpdateEmployees from "~/pages/Employees/Update Employees";
-import Role from "~/pages/Employees/Role";
+import EmployeeList from "~/pages/Employees/ListEmployees";
+import AddEmployees from "~/pages/Employees/AddEmployees";
+import UpdateEmployees from "~/pages/Employees/UpdateEmployees";
+import RoleEmployees from "~/pages/Employees/RoleEmployees";
 
-import List from "~/pages/Departments/List";
-import Add from "~/pages/Departments/Add";
-import ManageTeams from "~/pages/Departments/Manage Teams";
+import ListDepartment from "~/pages/Departments/ListDepartment";
+import AddDeparment from "~/pages/Departments/AddDeparment";
+import ManageTeamsDepartment from "~/pages/Departments/ManageTeamsDepartment";
 
-import Payroll from "~/pages/Salary/Payroll";
-import ListContact from "~/pages/Salary/List Contract";
-import AddContact from "~/pages/Salary/Add";
-import Renew from "~/pages/Salary/Renew";
+import PayrollSalary from "~/pages/Salary/PayrollSalary";
+import ListContractSalary from "~/pages/Salary/ListContractSalary";
 
-import LeaveReq from "~/pages/Attendance/Leave Request";
-import LoginPage from "~/pages/Account/LoginPage";
-import CreatePage from "~/pages/Account/CreatePage";
+import LeaveAttendaceRequestPage from "~/pages/Attendance/LeaveAttendaceRequest";
+import OvertimeAttendace from "~/pages/Attendance/OvertimeAttendance";
+import ReportAttendance from "~/pages/Attendance/ReportAttendance";
 
-import Layout_Login from "~/components/Layout/AuthLayout";
+import LoginUserPage from "~/pages/Account/LoginUserPage";
+import SignUpUserPage from "~/pages/Account/SignupUserPage";
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="news" element={<News />} />
         <Route path="upload" element={<Upload />} />
         <Route path="dashboard">
-          <Route path="analytics" element={<Analytics />} />
-          <Route path="overview" element={<Overview />} />
-          <Route path="report" element={<Report />} />
+          <Route index element={<OverviewDashboard />} />
+          <Route path="overview" element={<OverviewDashboard />} />
+          <Route path="analytics" element={<AnalyticsDashboard />} />
+          <Route path="report" element={<ReportDashboard />} />
         </Route>
         <Route path="employees">
+          <Route index element={<EmployeeList />} />
           <Route path="list" element={<EmployeeList />} />
           <Route path="add" element={<AddEmployees />} />
           <Route path="edit" element={<UpdateEmployees />} />
-          <Route path="role" element={<Role />} />
+          <Route path="role" element={<RoleEmployees />} />
         </Route>
         <Route path="department">
-          <Route path="list" element={<List />} />
-          <Route path="add" element={<Add />} />
-          <Route path="manage" element={<ManageTeams />} />
+          <Route index element={<ListDepartment />} />
+          <Route path="list" element={<ListDepartment />} />
+          <Route path="add" element={<AddDeparment />} />
+          <Route path="manage" element={<ManageTeamsDepartment />} />
         </Route>
         <Route path="attendance">
-          <Route path="report" element={<Report />} />
-          <Route path="leaveReq" element={<LeaveReq />} />
-          <Route path="overtime" element={<OverTime />} />
+          <Route index element={<ReportAttendance />} />
+          <Route path="report" element={<ReportAttendance />} />
+          <Route path="leaverequest" element={<LeaveAttendaceRequestPage />} />
+          <Route path="overtime" element={<OvertimeAttendace />} />
         </Route>
         <Route path="salary">
-          <Route path="payroll" element={<Payroll />} />
-          <Route path="listcontact" element={<ListContact />} />
-          <Route path="addcontact" element={<AddContact />} />
-          <Route path="renew" element={<Renew />} />
+          <Route index element={<PayrollSalary />} />
+          <Route path="payroll" element={<PayrollSalary />} />
+          <Route path="listcontact" element={<ListContractSalary />} />
         </Route>
       </Route>
-      <Route element={<Layout_Login />}>
-        <Route path="login" element={<LoginPage />} />
-        <Route path="create" element={<CreatePage />} />
+      <Route element={<AuthLayout />}>
+        <Route path="login" element={<LoginUserPage />} />
+        <Route path="signup" element={<SignUpUserPage />} />
       </Route>
     </Routes>
   );
