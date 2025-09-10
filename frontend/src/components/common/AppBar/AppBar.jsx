@@ -2,14 +2,12 @@ import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 
-import ModeSelect from "~/components/ModeSelect/ModeSelect";
+import ModeSelect from "~/components/common/ModeSelect/ModeSelect";
 import LogoSmall from "~/assets/favicon.ico";
 
-
-
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "~/context/AuthContext";
 import Menus from "./Menus/Menus";
-import UserMenu from "../User/UserMenu";
+import UserMenu from "~/components/User/UserMenu";
 
 import AccountButton from "./AccountButton/AccountButton";
 
