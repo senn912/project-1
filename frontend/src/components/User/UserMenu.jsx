@@ -4,18 +4,22 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useAuth } from "../../context/AuthContext";
 
+import { useNavigate } from "react-router-dom";
+
 export default function UserMenu() {
   const { user, logoutUser } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
+  const navigate = useNavigate();
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
   const handleLogout = () => {
     logoutUser();
     handleClose();
   };
-
+  const handleManage = () => {
+    navigate("/manageaccount");
+  };
   if (!user) return null;
 
   return (
@@ -39,7 +43,8 @@ export default function UserMenu() {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
       >
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={handleManage}>Information</MenuItem>
+        <MenuItem onClick={handleLogout}>Log Out</MenuItem>
       </Menu>
     </>
   );

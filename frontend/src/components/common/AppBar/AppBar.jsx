@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 import ModeSelect from "~/components/ModeSelect/ModeSelect";
 import LogoSmall from "~/assets/favicon.ico";
 
-import Button from "@mui/material/Button";
+
 
 import { useAuth } from "../../context/AuthContext";
 import Menus from "./Menus/Menus";

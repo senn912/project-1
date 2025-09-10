@@ -28,6 +28,7 @@ import ReportAttendance from "~/pages/Attendance/ReportAttendance";
 
 import LoginUserPage from "~/pages/Account/LoginUserPage";
 import SignUpUserPage from "~/pages/Account/SignupUserPage";
+import ManageAccountPage from "~/pages/Account/ManageAccountPage";
 
 function AppRoutes() {
   return (
@@ -70,6 +71,7 @@ function AppRoutes() {
       <Route element={<AuthLayout />}>
         <Route path="login" element={<LoginUserPage />} />
         <Route path="signup" element={<SignUpUserPage />} />
+        <Route path="manageaccount" element={<ManageAccountPage />} />
       </Route>
     </Routes>
   );

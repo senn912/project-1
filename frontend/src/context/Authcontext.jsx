@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     return logOut()
       .then(() => {
         setUser(null);
-        navigate("/");
+        navigate("/login");
       })
       .catch((err) => {
         console.error("Logout error:", err);

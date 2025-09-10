@@ -48,7 +48,7 @@ export default function LoginUserPage() {
         }}
       >
         <Typography variant="h5" fontWeight="bold" align="center" mb={3}>
-          Log in
+          LOG IN
         </Typography>
         <Box
           component="form"
